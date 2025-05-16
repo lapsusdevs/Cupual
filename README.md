@@ -1,11 +1,11 @@
-<p align="center"><img src="https://cdn.discordapp.com/attachments/1190680696524652654/1197981100140658790/logo_background.png?ex=65bd3dd7&is=65aac8d7&hm=c35b4d7db24937198bdc99cf1a14299d5bc81298f1cb9f988ce87a0d9ff6fa03&" width="150px" height="150px" alt="logo"></p>
+<p align="center"><img src="https://github.com/lapsusdevs/Cupual/blob/main/assets/img/logo.png?raw=true" width="150px" height="150px" alt="logo"></p>
 
 <h1 align="center">Cupual</h1>
 
 
 <p align="center">Cupual, a brand new dashboard made with perfection.</p>
 
-![Login Page](https://cdn.discordapp.com/attachments/1190680696524652654/1197981520376385596/login_page.png?ex=65bd3e3b&is=65aac93b&hm=227cecf95a7a435e775eb9b3799bc0d16d70021036e3c81e24ddba3abbbde78f&)
+<!-- ![Banner](https://images-ext-1.discordapp.net/external/xXi4F-3vOMyV0gHU3zlCT9Xdv0xIj-724v-mJPSwpTA/https/repository-images.githubusercontent.com/956044711/f4cee4e9-2a21-4eb1-8961-7a4ea8172bb6?format=webp&width=1712&height=856) -->
 
 ## Features
 
