@@ -1,0 +1,439 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= settings.name %> - Store</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
+  
+    <style>
+        .text-3xl {
+            color: white;
+        }
+  
+        .text-2xl {
+            color: white;
+        }
+  
+        .text-xl {
+            color: white;
+        }
+  
+        .text-lg {
+            color: white;
+        }
+  
+        h3 {
+            color: white;
+        }
+  
+        h2 {
+            color: white
+        }
+  
+        h3 {
+            color: white
+        }
+  
+        /* Loading bar animation */
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+  
+        /* Spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+  
+        .loading-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(to right, #4f46e5, #818cf8);
+            animation: loading 1s ease-in-out;
+            z-index: 1000;
+        }
+  
+        .spinner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+  
+        /* Sidebar transition for mobile */
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+  
+  
+    <!-- Recommended additional tag for mobile optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.right-4{right:1rem}.top-4{top:1rem}.z-40{z-index:40}.z-50{z-index:50}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:0.25rem}.ml-auto{margin-left:auto}.mr-1{margin-right:0.25rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mr-2{margin-right:0.5rem}.mb-2{margin-bottom:0.5rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.size-4{width:1rem;height:1rem}.size-5{width:1.25rem;height:1.25rem}.h-2{height:0.5rem}.h-4{height:1rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-full{height:100%}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.min-h-\[490px\]{min-height:490px}.w-2{width:0.5rem}.w-4{width:1rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-full{width:100%}.w-16{width:4rem}.w-5{width:1.25rem}.flex-1{flex:1 1 0%}.flex-grow{flex-grow:1}.-translate-x-full{--tw-translate-x:-100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-0\.5{gap:0.125rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-md{border-radius:0.375rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-l{border-top-left-radius:0.25rem;border-bottom-left-radius:0.25rem}.rounded-r{border-top-right-radius:0.25rem;border-bottom-right-radius:0.25rem}.rounded-br-3xl{border-bottom-right-radius:1.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-b-2{border-bottom-width:2px}.border-t{border-top-width:1px}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.border-green-500\/20{border-color:rgb(34 197 94 / 0.2)}.border-red-500\/20{border-color:rgb(239 68 68 / 0.2)}.border-indigo-500{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity))}.border-transparent{border-color:transparent}.bg-\[\#010103\]{--tw-bg-opacity:1;background-color:rgb(1 1 3 / var(--tw-bg-opacity))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity))}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity))}.bg-indigo-900\/10{background-color:rgb(49 46 129 / 0.1)}.bg-indigo-950{--tw-bg-opacity:1;background-color:rgb(30 27 75 / var(--tw-bg-opacity))}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-green-500\/10{background-color:rgb(34 197 94 / 0.1)}.bg-indigo-500{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity))}.bg-red-500\/10{background-color:rgb(239 68 68 / 0.1)}.bg-opacity-50{--tw-bg-opacity:0.5}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-indigo-900\/15{--tw-gradient-from:rgb(49 46 129 / 0.15) var(--tw-gradient-from-position);--tw-gradient-to:rgb(49 46 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-white\/5{--tw-gradient-to:rgb(255 255 255 / 0.05) var(--tw-gradient-to-position)}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.p-3{padding:0.75rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-1\.5{padding-bottom:0.375rem}.pb-2{padding-bottom:0.5rem}.pl-2{padding-left:0.5rem}.pr-4{padding-right:1rem}.pt-0\.5{padding-top:0.125rem}.pt-2{padding-top:0.5rem}.pb-4{padding-bottom:1rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.text-white\/50{color:rgb(255 255 255 / 0.5)}.text-white\/70{color:rgb(255 255 255 / 0.7)}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170 / var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity))}.text-red-400{--tw-text-opacity:1;color:rgb(248 113 113 / var(--tw-text-opacity))}.text-white\/80{color:rgb(255 255 255 / 0.8)}.opacity-25{opacity:0.25}.opacity-75{opacity:0.75}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow))}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-200{transition-duration:200ms}.hover\:scale-95:hover{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-white\/5:hover{background-color:rgb(255 255 255 / 0.05)}.hover\:bg-indigo-700:hover{--tw-bg-opacity:1;background-color:rgb(67 56 202 / var(--tw-bg-opacity))}.hover\:bg-white\/10:hover{background-color:rgb(255 255 255 / 0.1)}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-green-300:hover{--tw-text-opacity:1;color:rgb(134 239 172 / var(--tw-text-opacity))}.hover\:text-red-300:hover{--tw-text-opacity:1;color:rgb(252 165 165 / var(--tw-text-opacity))}.hover\:text-zinc-200:hover{--tw-text-opacity:1;color:rgb(228 228 231 / var(--tw-text-opacity))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000))}.focus\:ring-inset:focus{--tw-ring-inset:inset}.focus\:ring-white:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity))}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:opacity-50:disabled{opacity:0.5}.group:hover .group-hover\:text-white\/70{color:rgb(255 255 255 / 0.7)}@media (min-width: 768px){.md\:static{position:static}.md\:inset-auto{inset:auto}.md\:hidden{display:none}.md\:h-screen{height:100vh}.md\:w-64{width:16rem}.md\:translate-x-0{--tw-translate-x:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}}</style></head>
+  
+  <body class="bg-[#010103] text-gray-300" style="font-family: 'Inter'" x-data="{ sidebarOpen: false }" @keydown.escape="sidebarOpen = false">
+    <!-- Loading bar -->
+    <div class="loading-bar" style="display: none;"></div>
+    <!-- Spinner -->
+    <div class="spinner" style="display: none;">
+        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    </div>
+    <%- include('components/menu') %>
+  
+    <%- include('components/navigation') %>
+  
+        <!-- Main Content -->
+        <main class="flex-1">
+            <div class="flex flex-col min-h-screen">
+                <!-- Content -->
+                <script>
+                    // Get the current URL path
+                    const cPath = window.location.pathname;
+            
+                    // Get all navigation links in the sidebar
+                    const sidebarLinks = document.querySelectorAll('aside a');
+            
+                    // Function to normalize paths (remove trailing slash and query params)
+                    const normalizePath = (path) => path.replace(/\/$/, '').split('?')[0];
+            
+                    // Normalize current path
+                    const normalizedCurrentPath = normalizePath(cPath);
+            
+                    // Loop through each link
+                    sidebarLinks.forEach(link => {
+                        // Get the href attribute
+                        const href = link.getAttribute('href');
+                        if (!href) return;
+            
+                        // Remove any '../' from href and normalize
+                        const normalizedHref = normalizePath(href.replace(/^\.\./, ''));
+            
+                        // Check if the current path matches the link's href
+                        if (normalizedCurrentPath === normalizedHref) {
+                            // Add active classes to the link
+                            link.classList.add('bg-white/10');
+                            link.classList.add('text-white');
+            
+                            // Find and update the SVG within the active link
+                            const svg = link.querySelector('svg');
+                            if (svg) {
+                                svg.classList.add('text-indigo-300');
+                            }
+                        }
+                    });
+                </script>
+            
+                <script>
+                    // Remove loading elements after animation
+                    setTimeout(() => {
+                        document.querySelector('.loading-bar').style.display = 'none';
+                        document.querySelector('.spinner').style.display = 'none';
+                    }, 1000);
+                </script>
+                <div class="px-10 mt-4">
+                    <div class=" min-h-[490px] flex justify-center">
+  
+  <main class="flex-grow container mx-auto px-4 py-8">
+    <!-- Header Section -->
+    <div class="flex justify-between items-center w-full mx-auto pb-4">
+        <div class="flex flex-col">
+            <h1 class="text-xl font-semibold mb-0.5" style="font-family: 'Inter';">Store</h1>
+            <p class="text-gray-400 text-md">Manage your resources and subscriptions with coins</p>
+        </div>
+  
+        <nav aria-label="Breadcrumb" class="inline-flex py-2 px-4 rounded-xl bg-white/5 transition-colors duration-200">
+            <ol role="list" class="flex items-center space-x-2">
+                <li>
+                    <a href="/" class="text-sm flex items-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors duration-200">
+                        <!-- Home Icon -->
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler size-4 icons-tabler-outline icon-tabler-home">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-zinc-400">
+                        <path d="M9 6l6 6-6 6"></path>
+                    </svg>
+                </li>
+                <li>
+                    <a href="#" class="text-sm flex items-center gap-2 font-medium text-white/80 hover:text-white transition-colors duration-200">
+                        Store
+                    </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+  
+    <!-- Tabs -->
+    <div class="border-b border-white/5 mt-4">
+        <nav class="flex space-x-8">
+            <button class="border-b-2 py-4 px-1 text-sm font-medium transition-colors duration-200 border-indigo-500 text-white">
+                Store
+            </button>
+        </nav>
+    </div>
+  
+    <!-- Alerts -->
+    <% if (req.query.success == "CREATED") { %>
+    <div class="rounded-md bg-green-800 p-4 mb-8">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3 flex-1 md:flex md:justify-between">
+                <p class="text-sm text-green-400">The server has successfully been created.</p>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <% if (req.query.success == "MODIFIED") { %>
+    <div class="rounded-md bg-green-800 p-4 mb-8">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3 flex-1 md:flex md:justify-between">
+                <p class="text-sm text-green-400">The server has successfully been modified. The changes will appear on the Panel in a few seconds.</p>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <% if (req.query.err == "none") { %>
+    <div class="rounded-md bg-green-800 p-4 mb-8">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3 flex-1 md:flex md:justify-between">
+                <p class="text-sm text-green-400">Buy completed!</p>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <% if (req.query.err == "CANNOTAFFORD") { %>
+    <div class="rounded-md bg-red-800 p-4 mb-8">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-red-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3 flex-1 md:flex md:justify-between">
+                <p class="text-sm text-red-400">Insufficient Coins balance!</p>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- Store Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4">
+        <!-- RAM Card -->
+        <div class="bg-white/5 rounded-2xl p-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold">RAM</h3>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-medium"><%= settings.api.client.coins.store.ram.cost %> Coins / <%= settings.api.client.coins.store.ram.per/1024 %>GB</span>
+                <div class="flex items-center">
+                    <form action="/buyram" class="w-full">
+                        <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-white rounded-md bg-white/5 border-white/10 focus:border-white/20 focus:ring-white/20 sm:text-sm">
+                            <option value=1><%= settings.api.client.coins.store.ram.per/1024 %> GB - <%= settings.api.client.coins.store.ram.cost %> coin<%= settings.api.client.coins.store.ram.cost == 1 ? "" : "s" %></option>
+                            <option value=2><%= settings.api.client.coins.store.ram.per/1024 * 2 %> GB - <%= settings.api.client.coins.store.ram.cost * 2 %> coins</option>
+                            <option value=3><%= settings.api.client.coins.store.ram.per/1024 * 3 %> GB - <%= settings.api.client.coins.store.ram.cost * 3 %> coins</option>
+                            <option value=4><%= settings.api.client.coins.store.ram.per/1024 * 4 %> GB - <%= settings.api.client.coins.store.ram.cost * 4 %> coins</option>
+                            <option value=5><%= settings.api.client.coins.store.ram.per/1024 * 5 %> GB - <%= settings.api.client.coins.store.ram.cost * 5 %> coins</option>
+                            <option value=6><%= settings.api.client.coins.store.ram.per/1024 * 6 %> GB - <%= settings.api.client.coins.store.ram.cost * 6 %> coins</option>
+                            <option value=7><%= settings.api.client.coins.store.ram.per/1024 * 7 %> GB - <%= settings.api.client.coins.store.ram.cost * 7 %> coins</option>
+                            <option value=8><%= settings.api.client.coins.store.ram.per/1024 * 8 %> GB - <%= settings.api.client.coins.store.ram.cost * 8 %> coins</option>
+                            <option value=9><%= settings.api.client.coins.store.ram.per/1024 * 9 %> GB - <%= settings.api.client.coins.store.ram.cost * 9 %> coins</option>
+                            <option value=10><%= settings.api.client.coins.store.ram.per/1024 * 10 %> GB - <%= settings.api.client.coins.store.ram.cost * 10 %> coins</option>
+                        </select>
+                        <br>
+                        <button type="submit" class="w-full bg-indigo-500 font-medium text-white py-2 rounded-full hover:bg-indigo-700 transition flex items-center justify-center">
+                            Purchase RAM
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disk Card -->
+        <div class="bg-white/5 rounded-2xl p-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold">Disk</h3>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-medium"><%= settings.api.client.coins.store.disk.cost %> Coins / <%= settings.api.client.coins.store.disk.per/1024 %>GB</span>
+                <div class="flex items-center">
+                    <form action="/buydisk" class="w-full">
+                        <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-white rounded-md bg-white/5 border-white/10 focus:border-white/20 focus:ring-white/20 sm:text-sm">
+                            <option value=1><%= settings.api.client.coins.store.disk.per/1024 %> GB - <%= settings.api.client.coins.store.disk.cost %> coin<%= settings.api.client.coins.store.disk.cost == 1 ? "" : "s" %></option>
+                            <option value=2><%= settings.api.client.coins.store.disk.per/1024 * 2 %> GB - <%= settings.api.client.coins.store.disk.cost * 2 %> coins</option>
+                            <option value=3><%= settings.api.client.coins.store.disk.per/1024 * 3 %> GB - <%= settings.api.client.coins.store.disk.cost * 3 %> coins</option>
+                            <option value=4><%= settings.api.client.coins.store.disk.per/1024 * 4 %> GB - <%= settings.api.client.coins.store.disk.cost * 4 %> coins</option>
+                            <option value=5><%= settings.api.client.coins.store.disk.per/1024 * 5 %> GB - <%= settings.api.client.coins.store.disk.cost * 5 %> coins</option>
+                            <option value=6><%= settings.api.client.coins.store.disk.per/1024 * 6 %> GB - <%= settings.api.client.coins.store.disk.cost * 6 %> coins</option>
+                            <option value=7><%= settings.api.client.coins.store.disk.per/1024 * 7 %> GB - <%= settings.api.client.coins.store.disk.cost * 7 %> coins</option>
+                            <option value=8><%= settings.api.client.coins.store.disk.per/1024 * 8 %> GB - <%= settings.api.client.coins.store.disk.cost * 8 %> coins</option>
+                            <option value=9><%= settings.api.client.coins.store.disk.per/1024 * 9 %> GB - <%= settings.api.client.coins.store.disk.cost * 9 %> coins</option>
+                            <option value=10><%= settings.api.client.coins.store.disk.per/1024 * 10 %> GB - <%= settings.api.client.coins.store.disk.cost * 10 %> coins</option>
+                        </select>
+                        <br>
+                        <button type="submit" class="w-full bg-indigo-500 font-medium text-white py-2 rounded-full hover:bg-indigo-700 transition flex items-center justify-center">
+                            Purchase Disk
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- CPU Card -->
+        <div class="bg-white/5 rounded-2xl p-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold">CPU</h3>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-medium"><%= settings.api.client.coins.store.cpu.cost %> Coins / <%= settings.api.client.coins.store.cpu.per/100 %> Core</span>
+                <div class="flex items-center">
+                    <form action="/buycpu" class="w-full">
+                        <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-white rounded-md bg-white/5 border-white/10 focus:border-white/20 focus:ring-white/20 sm:text-sm">
+                            <option value=1><%= settings.api.client.coins.store.cpu.per/100 %> Core - <%= settings.api.client.coins.store.cpu.cost %> coin<%= settings.api.client.coins.store.cpu.cost == 1 ? "" : "s" %></option>
+                            <option value=2><%= settings.api.client.coins.store.cpu.per/100 * 2 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 2 %> coins</option>
+                            <option value=3><%= settings.api.client.coins.store.cpu.per/100 * 3 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 3 %> coins</option>
+                            <option value=4><%= settings.api.client.coins.store.cpu.per/100 * 4 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 4 %> coins</option>
+                            <option value=5><%= settings.api.client.coins.store.cpu.per/100 * 5 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 5 %> coins</option>
+                            <option value=6><%= settings.api.client.coins.store.cpu.per/100 * 6 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 6 %> coins</option>
+                            <option value=7><%= settings.api.client.coins.store.cpu.per/100 * 7 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 7 %> coins</option>
+                            <option value=8><%= settings.api.client.coins.store.cpu.per/100 * 8 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 8 %> coins</option>
+                            <option value=9><%= settings.api.client.coins.store.cpu.per/100 * 9 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 9 %> coins</option>
+                            <option value=10><%= settings.api.client.coins.store.cpu.per/100 * 10 %> Cores - <%= settings.api.client.coins.store.cpu.cost * 10 %> coins</option>
+                        </select>
+                        <br>
+                        <button type="submit" class="w-full bg-indigo-500 font-medium text-white py-2 rounded-full hover:bg-indigo-700 transition flex items-center justify-center">
+                            Purchase CPU
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servers Card -->
+        <div class="bg-white/5 rounded-2xl p-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold">Servers</h3>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-medium"><%= settings.api.client.coins.store.servers.cost %> Coins / <%= settings.api.client.coins.store.servers.per/1 %> Server</span>
+                <div class="flex items-center">
+                    <form action="/buyservers" class="w-full">
+                        <select name="amount" class="form-control transition ease-in-out delay-100 block w-full flex-1 text-white rounded-md bg-white/5 border-white/10 focus:border-white/20 focus:ring-white/20 sm:text-sm">
+                            <option value=1><%= settings.api.client.coins.store.servers.per/1 %> Server - <%= settings.api.client.coins.store.servers.cost %> coin<%= settings.api.client.coins.store.servers.cost == 1 ? "" : "s" %></option>
+                            <option value=2><%= settings.api.client.coins.store.servers.per/1 * 2 %> Servers - <%= settings.api.client.coins.store.servers.cost * 2 %> coins</option>
+                            <option value=3><%= settings.api.client.coins.store.servers.per/1 * 3 %> Servers - <%= settings.api.client.coins.store.servers.cost * 3 %> coins</option>
+                            <option value=4><%= settings.api.client.coins.store.servers.per/1 * 4 %> Servers - <%= settings.api.client.coins.store.servers.cost * 4 %> coins</option>
+                            <option value=5><%= settings.api.client.coins.store.servers.per/1 * 5 %> Servers - <%= settings.api.client.coins.store.servers.cost * 5 %> coins</option>
+                            <option value=6><%= settings.api.client.coins.store.servers.per/1 * 6 %> Servers - <%= settings.api.client.coins.store.servers.cost * 6 %> coins</option>
+                            <option value=7><%= settings.api.client.coins.store.servers.per/1 * 7 %> Servers - <%= settings.api.client.coins.store.servers.cost * 7 %> coins</option>
+                            <option value=8><%= settings.api.client.coins.store.servers.per/1 * 8 %> Servers - <%= settings.api.client.coins.store.servers.cost * 8 %> coins</option>
+                            <option value=9><%= settings.api.client.coins.store.servers.per/1 * 9 %> Servers - <%= settings.api.client.coins.store.servers.cost * 9 %> coins</option>
+                            <option value=10><%= settings.api.client.coins.store.servers.per/1 * 10 %> Servers - <%= settings.api.client.coins.store.servers.cost * 10 %> coins</option>
+                        </select>
+                        <br>
+                        <button type="submit" class="w-full bg-indigo-500 font-medium text-white py-2 rounded-full hover:bg-indigo-700 transition flex items-center justify-center">
+                            Purchase Servers
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   </main>
+  
+  <style>
+  #CV {
+    border-radius: 4px;
+  }
+  </style>
+  
+    <script>
+        // Function to highlight the active tab
+        function setActiveTab() {
+            const currentPath = window.location.pathname;
+            const tabs = document.querySelectorAll('#tabs a');
+            tabs.forEach(tab => {
+                if (tab.getAttribute('href') === currentPath) {
+                    tab.classList.add('border-indigo-500', 'text-indigo-500', 'font-medium');
+                    tab.classList.remove('border-transparent', 'hover:border-gray-300', 'hover:text-white');
+                } else {
+                    tab.classList.remove('border-indigo-500', 'text-indigo-500', 'font-medium');
+                    tab.classList.add('border-transparent', 'hover:border-gray-300', 'hover:text-white');
+                }
+            });
+        }
+  
+        // Set active tab on page load
+        setActiveTab();
+  
+        // For demonstration purposes, simulate changing routes when clicking tabs
+        document.querySelectorAll('#tabs a').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = e.currentTarget.getAttribute('href');
+                history.pushState(null, '', href);
+                window.location.href = href;
+                setActiveTab();
+            });
+        });
+  
+        // Listen for popstate events (back/forward browser navigation)
+        window.addEventListener('popstate', setActiveTab);
+    </script>
+  </body>
+  </html>
+  <script>
+    var options = {
+      classname: 'loadingbar',
+      id: 'loadingbar'
+    };
+    var nanobar = new Nanobar(options);
+    function simulateLoading() {
+      nanobar.go(10); // Change this value to control the loading speed
+      setTimeout(function() {
+        nanobar.go(50);
+      }, 190); // Delay the progress update
+      setTimeout(function() {
+        nanobar.go(100);
+      }, 400); // Another delay
+    }
+    simulateLoading();
+  </script>
+  <style>
+    .loadingbar .bar {
+      background: #fb923c;
+      -webkit-box-shadow: 0px 4px 38px -15px #fb923c;
+      -moz-box-shadow: 0px 4px 38px -15px #fb923c;
+      box-shadow: 0px 4px 38px -15px #fb923c;
+      height: 1.85px;
+    }
+  </style></div></div></main></div></body></html>

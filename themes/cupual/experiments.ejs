@@ -1,0 +1,555 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= settings.name %> - Experiments</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        .text-3xl { color: white; }
+        .text-2xl { color: white; }
+        .text-xl { color: white; }
+        .text-lg { color: white; }
+        h3 { color: white; }
+        h2 { color: white; }
+        h3 { color: white; }
+
+        /* Loading bar animation */
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(to right, #4f46e5, #818cf8);
+            animation: loading 1s ease-in-out;
+            z-index: 1000;
+        }
+
+        .spinner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+
+        /* Experiment card styles */
+        .experiment-card {
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .experiment-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            border-color: rgba(79, 70, 229, 0.3);
+        }
+        
+        /* Badge styles */
+        .badge-beta {
+            background: rgba(79, 70, 229, 0.2);
+            color: #a5b4fc;
+        }
+        
+        .badge-new {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+        
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-gray-300" style="font-family: 'Inter'" 
+      x-data="experimentData()" 
+      @keydown.escape="sidebarOpen = false">
+    <!-- Loading bar -->
+    <div class="loading-bar" style="display: none;"></div>
+    <!-- Spinner -->
+    <div class="spinner" style="display: none;">
+        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    </div>
+    <%- include('components/menu') %>
+
+    <%- include('components/navigation') %>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="flex flex-col min-h-screen">
+            <!-- Content -->
+            <div class="px-10 mt-4">
+                <div class="min-h-[490px] flex justify-center">
+                    <main class="flex-grow container mx-auto px-4 py-8">
+                        <div class="flex justify-between items-center w-full mx-auto pb-4">
+                            <div class="flex flex-col">
+                                <h1 class="text-xl font-semibold mb-0.5" style="font-family: 'Inter';">Experiments</h1>
+                                <p class="text-gray-400 text-md">Take a look at our latest experiments and features.</p>
+                            </div>
+                            <nav aria-label="Breadcrumb" class="inline-flex py-2 px-4 rounded-xl bg-white/5 transition-colors duration-200">
+                                <ol role="list" class="flex items-center space-x-2">
+                                    <li>
+                                        <a href="/" class="text-sm flex items-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors duration-200" aria-current="false">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler size-4 icons-tabler-outline icon-tabler-home">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                                            </svg>
+                                            <span>Home</span>
+                                        </a>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right size-4 text-zinc-400">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M9 6l6 6l-6 6"></path>
+                                        </svg>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-sm flex items-center gap-2 font-medium text-white/80 hover:text-white transition-colors duration-200" aria-current="page">
+                                            Experiments
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+
+                        <div class="mx-auto mt-12">
+                            No experiments yet.
+                         </div>
+
+
+                    <!-- Sample Experiments -->
+                        <%#- <div class="mx-auto mt-12">
+                            <div class="mb-8">
+                                <h2 class="text-lg font-semibold mb-4">Beta Features</h2>
+                                <p class="text-gray-400 mb-6">Try out our latest experimental features. These may change or be removed in future updates.</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- AI Content Generator -->
+                                    <div class="experiment-card bg-white/5 rounded-xl p-6">
+                                        <div class="flex items-start justify-between">
+                                            <div>
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <h3 class="font-medium">AI Content Generator</h3>
+                                                    <span class="badge-beta text-xs px-2 py-0.5 rounded-full">Beta</span>
+                                                </div>
+                                                <p class="text-gray-400 text-sm mb-4">Generate content automatically using our advanced AI models.</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" x-model="features.aiContentGenerator" @change="toggleFeature('aiContentGenerator')" class="sr-only peer">
+                                                <div class="w-9 h-5 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-400 gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                                <path d="M12 7v5l3 3"></path>
+                                            </svg>
+                                            <span x-text="timeAgo(updateTimes.aiContentGenerator)"></span>
+                                        </div>
+                                        <template x-if="features.aiContentGenerator">
+                                            <div class="mt-4 pt-4 border-t border-white/10">
+                                                <button @click="generateAIContent()" class="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white text-sm font-medium transition-colors duration-200">
+                                                    Generate Sample Content
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    
+                                    <!-- Dark Mode V2 -->
+                                    <div class="experiment-card bg-white/5 rounded-xl p-6">
+                                        <div class="flex items-start justify-between">
+                                            <div>
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <h3 class="font-medium">Dark Mode V2</h3>
+                                                    <span class="badge-new text-xs px-2 py-0.5 rounded-full">New</span>
+                                                </div>
+                                                <p class="text-gray-400 text-sm mb-4">Our improved dark mode with better contrast and readability.</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" x-model="features.darkModeV2" @change="toggleFeature('darkModeV2')" class="sr-only peer">
+                                                <div class="w-9 h-5 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-400 gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                                <path d="M12 7v5l3 3"></path>
+                                            </svg>
+                                            <span x-text="timeAgo(updateTimes.darkModeV2)"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Voice Commands -->
+                                    <div class="experiment-card bg-white/5 rounded-xl p-6">
+                                        <div class="flex items-start justify-between">
+                                            <div>
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <h3 class="font-medium">Voice Commands</h3>
+                                                    <span class="badge-beta text-xs px-2 py-0.5 rounded-full">Beta</span>
+                                                    <span class="badge-warning text-xs px-2 py-0.5 rounded-full">Unstable</span>
+                                                </div>
+                                                <p class="text-gray-400 text-sm mb-4">Control the application using voice commands (requires microphone access).</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" x-model="features.voiceCommands" @change="toggleFeature('voiceCommands')" class="sr-only peer">
+                                                <div class="w-9 h-5 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-400 gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                                <path d="M12 7v5l3 3"></path>
+                                            </svg>
+                                            <span x-text="timeAgo(updateTimes.voiceCommands)"></span>
+                                        </div>
+                                        <template x-if="features.voiceCommands">
+                                            <div class="mt-4 pt-4 border-t border-white/10">
+                                                <button @click="startVoiceCommands()" class="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white text-sm font-medium transition-colors duration-200">
+                                                    Start Voice Commands
+                                                </button>
+                                                <p x-show="voiceCommandStatus" class="mt-2 text-xs text-gray-400" x-text="voiceCommandStatus"></p>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    
+                                    <!-- Collaborative Editing -->
+                                    <div class="experiment-card bg-white/5 rounded-xl p-6">
+                                        <div class="flex items-start justify-between">
+                                            <div>
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <h3 class="font-medium">Collaborative Editing</h3>
+                                                    <span class="badge-beta text-xs px-2 py-0.5 rounded-full">Beta</span>
+                                                </div>
+                                                <p class="text-gray-400 text-sm mb-4">Real-time collaboration with team members on documents.</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" x-model="features.collaborativeEditing" @change="toggleFeature('collaborativeEditing')" class="sr-only peer">
+                                                <div class="w-9 h-5 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-400 gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                                <path d="M12 7v5l3 3"></path>
+                                            </svg>
+                                            <span x-text="timeAgo(updateTimes.collaborativeEditing)"></span>
+                                        </div>
+                                        <template x-if="features.collaborativeEditing">
+                                            <div class="mt-4 pt-4 border-t border-white/10">
+                                                <input type="text" x-model="collaborationRoom" placeholder="Enter room name" class="w-full px-3 py-2 bg-white/5 rounded-md text-white text-sm mb-2">
+                                                <button @click="joinCollaborationRoom()" class="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white text-sm font-medium transition-colors duration-200">
+                                                    Join Collaboration Room
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Experimental Settings -->
+                            <div class="bg-white/5 rounded-xl p-6">
+                                <h2 class="text-lg font-semibold mb-4">Experimental Settings</h2>
+                                <p class="text-gray-400 mb-6">These settings may affect application stability. Use with caution.</p>
+                                
+                                <div class="space-y-6">
+                                    <!-- Hardware Acceleration -->
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h3 class="font-medium">Hardware Acceleration</h3>
+                                            <p class="text-gray-400 text-sm">Use GPU acceleration for better performance (may cause visual glitches).</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" x-model="settings.hardwareAcceleration" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    
+                                    <!-- Experimental Rendering -->
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h3 class="font-medium">Experimental Rendering</h3>
+                                            <p class="text-gray-400 text-sm">Try our new rendering engine (requires restart).</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" x-model="settings.experimentalRendering" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                    
+                                    <!-- Early Access Updates -->
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h3 class="font-medium">Early Access Updates</h3>
+                                            <p class="text-gray-400 text-sm">Receive updates before they're officially released.</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" x-model="settings.earlyAccessUpdates" class="sr-only peer">
+                                            <div class="w-11 h-6 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-8 pt-6 border-t border-white/10">
+                                    <button @click="saveSettings()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white font-medium transition-colors duration-200">
+                                        Save Experimental Settings
+                                    </button>
+                                    <button @click="resetSettings()" class="ml-3 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-md text-white font-medium transition-colors duration-200">
+                                        Reset to Defaults
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Alpine.js data and functions
+        function experimentData() {
+            return {
+                features: {
+                    aiContentGenerator: false,
+                    darkModeV2: false,
+                    voiceCommands: false,
+                    collaborativeEditing: false
+                },
+                updateTimes: {
+                    aiContentGenerator: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+                    darkModeV2: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
+                    voiceCommands: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000), // 3 weeks ago
+                    collaborativeEditing: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) // 5 days ago
+                },
+                settings: {
+                    hardwareAcceleration: false,
+                    experimentalRendering: false,
+                    earlyAccessUpdates: false
+                },
+                collaborationRoom: '',
+                voiceCommandStatus: '',
+                aiGeneratedContent: '',
+                updateInterval: null,
+                
+                // Initialize from localStorage
+                init() {
+                    const savedFeatures = localStorage.getItem('experimentFeatures');
+                    const savedSettings = localStorage.getItem('experimentSettings');
+                    
+                    if (savedFeatures) {
+                        this.features = JSON.parse(savedFeatures);
+                    }
+                    
+                    if (savedSettings) {
+                        this.settings = JSON.parse(savedSettings);
+                    }
+                    
+                    // Start the interval to update time ago text
+                    this.startUpdateInterval();
+                },
+                
+                // Start interval to update time ago text
+                startUpdateInterval() {
+                    // Clear any existing interval
+                    if (this.updateInterval) {
+                        clearInterval(this.updateInterval);
+                    }
+                    
+                    // Update every minute
+                    this.updateInterval = setInterval(() => {
+                        // This will force Alpine to re-evaluate the timeAgo() function
+                        // We don't need to actually change any data, just trigger reactivity
+                        this.updateTimes = {...this.updateTimes};
+                    }, 60000);
+                },
+                
+                // Format time ago
+                timeAgo(date) {
+                    const seconds = Math.floor((new Date() - date) / 1000);
+                    
+                    let interval = Math.floor(seconds / 31536000);
+                    if (interval >= 1) {
+                        return `Updated ${interval} year${interval === 1 ? '' : 's'} ago`;
+                    }
+                    interval = Math.floor(seconds / 2592000);
+                    if (interval >= 1) {
+                        return `Updated ${interval} month${interval === 1 ? '' : 's'} ago`;
+                    }
+                    interval = Math.floor(seconds / 86400);
+                    if (interval >= 1) {
+                        return `Updated ${interval} day${interval === 1 ? '' : 's'} ago`;
+                    }
+                    interval = Math.floor(seconds / 3600);
+                    if (interval >= 1) {
+                        return `Updated ${interval} hour${interval === 1 ? '' : 's'} ago`;
+                    }
+                    interval = Math.floor(seconds / 60);
+                    if (interval >= 1) {
+                        return `Updated ${interval} minute${interval === 1 ? '' : 's'} ago`;
+                    }
+                    return `Updated just now`;
+                },
+                
+                // Toggle a feature
+                toggleFeature(featureName) {
+                    // Special handling for specific features
+                    if (featureName === 'darkModeV2' && this.features.darkModeV2) {
+                        document.documentElement.classList.add('dark');
+                        document.documentElement.style.backgroundColor = '#0f172a';
+                    } else if (featureName === 'darkModeV2' && !this.features.darkModeV2) {
+                        document.documentElement.classList.remove('dark');
+                        document.documentElement.style.backgroundColor = '';
+                    }
+                    
+                    // Update the timestamp
+                    this.updateTimes[featureName] = new Date();
+                    
+                    // Save to localStorage
+                    localStorage.setItem('experimentFeatures', JSON.stringify(this.features));
+                    
+                    // Show notification
+                    this.showNotification(`Feature "${featureName}" ${this.features[featureName] ? 'enabled' : 'disabled'}`);
+                },
+                
+                // Generate AI content
+                generateAIContent() {
+                    this.showNotification("Generating AI content...");
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        const sampleContent = [
+                            "The future of technology lies in artificial intelligence and machine learning.",
+                            "Innovation is the key to solving complex problems in our society.",
+                            "User experience should always be at the forefront of product design.",
+                            "Collaboration between humans and AI will drive the next industrial revolution."
+                        ];
+                        
+                        const randomContent = sampleContent[Math.floor(Math.random() * sampleContent.length)];
+                        this.aiGeneratedContent = randomContent;
+                        this.showNotification("AI content generated successfully!");
+                        
+                        // Update the timestamp
+                        this.updateTimes.aiContentGenerator = new Date();
+                        
+                        // In a real app, you would display this content somewhere
+                        alert("Generated Content:\n\n" + randomContent);
+                    }, 1500);
+                },
+                
+                // Start voice commands
+                startVoiceCommands() {
+                    if (!('webkitSpeechRecognition' in window)) {
+                        this.voiceCommandStatus = "Voice commands not supported in your browser";
+                        return;
+                    }
+                    
+                    this.voiceCommandStatus = "Listening... Say a command";
+                    
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    
+                    recognition.onstart = () => {
+                        this.voiceCommandStatus = "Listening... Say a command";
+                    };
+                    
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript.toLowerCase();
+                        this.voiceCommandStatus = `You said: "${transcript}"`;
+                        
+                        // Process commands
+                        if (transcript.includes('home')) {
+                            window.location.href = '/';
+                        } else if (transcript.includes('help')) {
+                            alert("Available voice commands: home, help, refresh");
+                        } else if (transcript.includes('refresh')) {
+                            window.location.reload();
+                        }
+                        
+                        // Update the timestamp
+                        this.updateTimes.voiceCommands = new Date();
+                    };
+                    
+                    recognition.onerror = (event) => {
+                        this.voiceCommandStatus = "Error occurred in recognition: " + event.error;
+                    };
+                    
+                    recognition.onend = () => {
+                        this.voiceCommandStatus = "Voice recognition ended";
+                    };
+                    
+                    recognition.start();
+                },
+                
+                // Join collaboration room
+                joinCollaborationRoom() {
+                    if (!this.collaborationRoom) {
+                        this.showNotification("Please enter a room name");
+                        return;
+                    }
+                    
+                    this.showNotification(`Joining collaboration room: ${this.collaborationRoom}`);
+                    // Update the timestamp
+                    this.updateTimes.collaborativeEditing = new Date();
+                    // In a real app, you would connect to a WebSocket or similar for collaboration
+                },
+                
+                // Save settings
+                saveSettings() {
+                    localStorage.setItem('experimentSettings', JSON.stringify(this.settings));
+                    this.showNotification("Settings saved successfully!");
+                },
+                
+                // Reset settings
+                resetSettings() {
+                    this.settings = {
+                        hardwareAcceleration: false,
+                        experimentalRendering: false,
+                        earlyAccessUpdates: false
+                    };
+                    this.showNotification("Settings reset to defaults");
+                },
+                
+                // Show notification
+                showNotification(message) {
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed bottom-4 right-4 px-4 py-2 bg-indigo-600 text-white rounded-md shadow-lg';
+                    notification.textContent = message;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                        setTimeout(() => notification.remove(), 300);
+                    }, 3000);
+                }
+            };
+        }
+    </script>-%>
+    
+</body>
+</html>

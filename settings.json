@@ -1,0 +1,351 @@
+{
+  "version": "1.0",
+  "name": "Cupual",
+  "logo": {
+    "url": "/assets/img/logo_background.png"
+  },
+  "defaulttheme": "cupual",
+  "timezone": "Europe/London",
+  "discord_server": "https://discord.gg/invite/",
+  "main_domain": "yourdomain.com",
+
+  "website": {
+    "port": 8000,
+    "secret": "change_this"
+  },
+  "pterodactyl": {
+    "domain": "https://panel.domain.com",
+    "key": "ptla_"
+  },
+  "storelimits": {
+    "ram": "5120",
+    "disk": "8240",
+    "cpu": "300",
+    "servers": "3"
+  },
+
+  "auto_update": true,
+
+  "database": "sqlite://database.sqlite",
+  "api": {
+    "client": {
+
+      "webhook": {
+        "auditlogs": false
+      },
+      "api": {
+        "enabled": false,
+        "code": "cupual"
+      },
+      "j4r": {
+        "enabled": false,
+        "ads": [
+          {
+            "name": "Example server 1",
+            "invite": "https://discord.gg/example",
+            "id": "000000000000000000",
+            "coins": 25
+          },
+          {
+            "name": "Example server 2",
+            "invite": "https://discord.gg/example",
+            "id": "000000000000000000",
+            "coins": 200
+          }
+        ]
+      },
+      "bot": {
+        "token": "BOT_TOKEN_HERE",
+        "joinguild": {
+          "_comment": "The Discord bot must be in these servers and have invite permissions. Automatic guild joining will not work unless role packages are configured correctly. You can always just set it to a random role & package so that only this works.",
+          "enabled": false,
+          "guildid": [
+            "000000000000000000"
+          ]
+        }
+      },
+      "passwordgenerator": {
+        "signup": true,
+        "note": "Use this to disable signups",
+        "length": 16
+      },
+      "allow": {
+        "newusers": true,
+        "regen": true,
+        "server": {
+          "create": true,
+          "modify": true,
+          "delete": true
+        },
+        "overresourcessuspend": false
+      },
+      "oauth2": {
+        "_comment": "Go to https://discord.dev/ and create an application to set these up.",
+        "id": "",
+        "secret": "",
+        "link": "http://localhost:8000",
+        "callbackpath": "/callback",
+        "prompt": true,
+        "ip": {
+          "trust x-forwarded-for": true,
+          "block": [],
+          "duplicate check": true
+        }
+      },
+      "ratelimits": {
+        "/callback": 2,
+        "/create": 1,
+        "/delete": 1,
+        "/modify": 1,
+        "/updateinfo": 1,
+        "/setplan": 2,
+        "/admin": 1,
+        "/regen": 1,
+        "/renew": 1,
+        "/api/userinfo": 1
+      },
+      "packages": {
+        "default": "default",
+        "list": {
+          "default": {
+            "ram": 1536,
+            "disk": 5120,
+            "cpu": 100,
+            "databases": 1,
+            "servers": 1
+          },
+
+          "premium": {
+            "ram": 2048,
+            "disk": 10240,
+            "cpu": 200,
+            "databases": 3,
+            "servers": 3
+          }
+        },
+        "rolePackages": {
+          "note": "This allows you to set a different plan to people who have a specific role however this requires the Discord bot to be configured and functioning. This is mainly used for Boost rewards",
+          "roleServer": "00000000000000",
+          "roles": {
+            "000000000000000000": "role"
+          }
+        }
+      },
+
+      
+      "locations": {
+        "1": { "name": "Spain", "city": "Madrid", "ISO": "es", "capacity": "100", "package": null },
+        "2": { "name": "Germany", "city": "Berlin", "ISO": "de", "capacity": "100", "package": null }
+      },
+      "note": "To change the ISO Code which changes the flag take a look at https://flagicons.lipis.dev/",
+
+
+      "eggs": {
+       "paper": {
+          "display": "Minecraft Java - Paper",
+          "minimum": {
+            "ram": 1024,
+            "disk": 1024,
+            "cpu": 100
+            
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+            
+          },
+          "info": {
+            "egg": 2,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "server.jar",
+              "BUILD_NUMBER": "latest"
+            },
+            "feature_limits": {
+              "databases": 4,
+              "backups": 4,
+              "allocations": 2
+            }
+          }
+        },
+        "bungeecord": {
+          "display": "Minecraft Java - BungeeCord",
+          "minimum": {
+            "ram": 512,
+            "disk": 512,
+            "cpu": 75
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 3,
+            "docker_image": "ghcr.io/pterodactyl/yolks:java_17",
+            "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}",
+            "environment": {
+              "SERVER_JARFILE": "bungeecord.jar",
+              "BUNGEE_VERSION": "latest"
+            },
+            "feature_limits": {
+              "databases": 4,
+              "backups": 4,
+              "allocations": 2
+            }
+          }
+        },
+        "nodejs": {
+          "display": "Code - NodeJS",
+          "minimum": {
+            "ram": 512,
+            "disk": 512,
+            "cpu": 75
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 15,
+            "docker_image": "ghcr.io/parkervcp/yolks:nodejs_18",
+            "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == \"1\" ]]; then git pull; fi; if [[ ! -z ${NODE_PACKAGES} ]]; then /usr/local/bin/npm install ${NODE_PACKAGES}; fi; if [[ ! -z ${UNNODE_PACKAGES} ]]; then /usr/local/bin/npm uninstall ${UNNODE_PACKAGES}; fi; if [ -f /home/container/package.json ]; then /usr/local/bin/npm install; fi; /usr/local/bin/node /home/container/{{BOT_JS_FILE}}",
+            "environment": {
+              "USER_UPLOAD": "0",
+              "AUTO_UPDATE": "0",
+              "MAIN_FILE": "index.js",
+              "BOT_JS_FILE": "index.js"
+            },
+            "feature_limits": {
+              "databases": 4,
+              "backups": 4
+            }
+          }
+        },
+        "python": {
+          "display": "Code - Python",
+          "minimum": {
+            "ram": 512,
+            "disk": 512,
+            "cpu": 75
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 16,
+            "docker_image": "ghcr.io/parkervcp/yolks:python_3.10",
+            "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == \"1\" ]]; then git pull; fi; if [[ ! -z {{PY_PACKAGES}} ]]; then pip install -U --prefix .local {{PY_PACKAGES}}; fi; if [[ -f /home/container/${REQUIREMENTS_FILE} ]]; then pip install -U --prefix .local -r ${REQUIREMENTS_FILE}; fi; /usr/local/bin/python /home/container/{{BOT_PY_FILE}}",
+            "environment": {
+              "USER_UPLOAD": "0",
+              "AUTO_UPDATE": "0",
+              "PY_FILE": "bot.py",
+              "REQUIREMENTS_FILE": "requirements.txt"
+            },
+            "feature_limits": {
+              "databases": 4,
+              "backups": 4
+            }
+          }
+        }
+      },
+      "coins": {
+        "enabled": true,
+        "store": {
+          "_comment": "The cost and per is not intended to used with 0. This is not intended to sell resources for coins. Make sure coins are enabled too, or else there can be errors.",
+          "enabled": true,
+          "ram": {
+            "cost": 400,
+            "per": 1024
+          },
+          "disk": {
+            "cost": 350,
+            "per": 3072
+          },
+          "cpu": {
+            "cost": 400,
+            "per": 50
+          },
+          "databases": {
+            "cost": 10,
+            "per": 1
+          },
+          "servers": {
+            "cost": 100,
+            "per": 1
+          }
+        }
+      }
+    },
+    "arcio": {
+      "enabled": true,
+      "widgetid": "widgetidhere",
+      "afk page": {
+        "_comment": "This will not effect any current arc.io sessions, and will require a restart to kick everyone out of the websocket sesison.",
+        "_comment2": "Make sure coins are enabled if you choose to enable this option!",
+        "enabled": true,
+        "_comment3": "If you change the path, you need to restart for it to take full effect.",
+        "path": "afkwspath",
+        "_comment4": "This afk page will give the users [coins variable] coins every [every variable] seconds.",
+        "every": 60,
+        "_comment5": "The coins variable is meant to not be under 1. There may be bugs if the coins variable is less than 1.",
+        "coins": 1
+      }
+    }
+  },
+  "whitelist": {
+    "note": "This allows only specific people to be able to use the dashboard",
+    "status": false,
+    "users": [
+      "User ID"
+    ]
+  },
+  "servercreation": {
+    "note": "You can set how much it should cost to create a server here, the default price is free",
+    "cost": 0
+  },
+  "renewals": {
+    "status": false,
+    "cost": 0,
+    "delay": 14
+  },
+  "logging": {
+    "status": false,
+    "webhook": "Webhook URL",
+    "actions": {
+      "user": {
+        "signup": true,
+        "create server": true,
+        "gifted coins": true,
+        "modify server": true,
+        "buy servers": true,
+        "buy ram": true,
+        "buy cpu": true,
+        "buy disk": true,
+        "buy databases": true
+      }, 
+      "admin": {
+        "set coins": true,
+        "add coins": true,
+        "set resources": true,
+        "set plan": true,
+        "create coupon": true,
+        "revoke coupon": true,
+        "remove account": true,
+        "view ip": true
+      }
+    }
+  },
+
+  "antivpn": {
+    "note": "For antivpn to work, generate an apikey on https://proxycheck.io/. If you put no key, Cupual will disable antivpn automatically. This won't avoid all VPN, just known ones.",
+    "status": true,
+    "APIKey": "Proxycheck APIKey",
+    "whitelistedIPs": ["IP address"]
+  }
+}

@@ -1,0 +1,579 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= settings.name %> - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
+
+  <style>
+      .text-3xl {
+          color: white;
+      }
+
+      .text-2xl {
+          color: white;
+      }
+
+      .text-xl {
+          color: white;
+      }
+
+      .text-lg {
+          color: white;
+      }
+
+      h3 {
+          color: white;
+      }
+
+      h2 {
+          color: white
+      }
+
+      h3 {
+          color: white
+      }
+
+      /* Loading bar animation */
+      @keyframes loading {
+          0% { width: 0%; }
+          100% { width: 100%; }
+      }
+
+      /* Spinner animation */
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+
+      .loading-bar {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          height: 2px;
+          background: linear-gradient(to right, #4f46e5, #818cf8);
+          animation: loading 1s ease-in-out;
+          z-index: 1000;
+      }
+
+      .spinner {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          animation: spin 1s linear infinite;
+          z-index: 1000;
+      }
+
+      /* Sidebar transition for mobile */
+      .sidebar-transition {
+          transition: transform 0.3s ease-in-out;
+      }
+  </style>
+
+ 
+  <!-- Recommended additional tag for mobile optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.right-4{right:1rem}.top-4{top:1rem}.z-40{z-index:40}.z-50{z-index:50}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mr-1{margin-right:0.25rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:0.25rem}.ml-auto{margin-left:auto}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mb-1{margin-bottom:0.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:0.25rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.size-5{width:1.25rem;height:1.25rem}.size-4{width:1rem;height:1rem}.h-2{height:0.5rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.h-4{height:1rem}.h-1\.5{height:0.375rem}.min-h-screen{min-height:100vh}.min-h-\[490px\]{min-height:490px}.w-2{width:0.5rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-4{width:1rem}.w-full{width:100%}.w-1\.5{width:0.375rem}.w-1\/3{width:33.333333%}.w-2\/3{width:66.666667%}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.grow-0{flex-grow:0}.-translate-x-full{--tw-translate-x:-100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-0\.5{gap:0.125rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-md{border-radius:0.375rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-r-3xl{border-top-right-radius:1.5rem;border-bottom-right-radius:1.5rem}.rounded-br-3xl{border-bottom-right-radius:1.5rem}.rounded-bl-3xl{border-bottom-left-radius:1.5rem}.rounded-tl-3xl{border-top-left-radius:1.5rem}.rounded-tr-3xl{border-top-right-radius:1.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-l-4{border-left-width:4px}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-emerald-700{--tw-border-opacity:1;border-color:rgb(4 120 87 / var(--tw-border-opacity))}.border-emerald-700\/30{border-color:rgb(4 120 87 / 0.3)}.border-indigo-500{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity))}.border-indigo-700{--tw-border-opacity:1;border-color:rgb(67 56 202 / var(--tw-border-opacity))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity))}.bg-indigo-900\/10{background-color:rgb(49 46 129 / 0.1)}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-indigo-950{--tw-bg-opacity:1;background-color:rgb(30 27 75 / var(--tw-bg-opacity))}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36 / var(--tw-bg-opacity))}.bg-amber-500\/10{background-color:rgb(245 158 11 / 0.1)}.bg-blue-400{--tw-bg-opacity:1;background-color:rgb(96 165 250 / var(--tw-bg-opacity))}.bg-blue-500\/10{background-color:rgb(59 130 246 / 0.1)}.bg-emerald-400{--tw-bg-opacity:1;background-color:rgb(52 211 153 / var(--tw-bg-opacity))}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-emerald-700{--tw-bg-opacity:1;background-color:rgb(4 120 87 / var(--tw-bg-opacity))}.bg-emerald-700\/15{background-color:rgb(4 120 87 / 0.15)}.bg-indigo-400{--tw-bg-opacity:1;background-color:rgb(129 140 248 / var(--tw-bg-opacity))}.bg-indigo-500\/10{background-color:rgb(99 102 241 / 0.1)}.bg-indigo-500\/15{background-color:rgb(99 102 241 / 0.15)}.bg-indigo-700{--tw-bg-opacity:1;background-color:rgb(67 56 202 / var(--tw-bg-opacity))}.bg-opacity-50{--tw-bg-opacity:0.5}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-indigo-900\/15{--tw-gradient-from:rgb(49 46 129 / 0.15) var(--tw-gradient-from-position);--tw-gradient-to:rgb(49 46 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-white\/5{--tw-gradient-to:rgb(255 255 255 / 0.05) var(--tw-gradient-to-position)}.p-3{padding:0.75rem}.p-6{padding:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-8{padding-top:2rem;padding-bottom:2rem}.py-\[9px\]{padding-top:9px;padding-bottom:9px}.pb-1\.5{padding-bottom:0.375rem}.pl-2{padding-left:0.5rem}.pr-4{padding-right:1rem}.pt-2{padding-top:0.5rem}.pt-0\.5{padding-top:0.125rem}.pb-4{padding-bottom:1rem}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-5{line-height:1.25rem}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.text-white\/50{color:rgb(255 255 255 / 0.5)}.text-white\/70{color:rgb(255 255 255 / 0.7)}.text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity))}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170 / var(--tw-text-opacity))}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity))}.text-white\/60{color:rgb(255 255 255 / 0.6)}.text-white\/80{color:rgb(255 255 255 / 0.8)}.text-white\/90{color:rgb(255 255 255 / 0.9)}.opacity-25{opacity:0.25}.opacity-75{opacity:0.75}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-200{transition-duration:200ms}.hover\:scale-95:hover{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-emerald-600:hover{--tw-border-opacity:1;border-color:rgb(5 150 105 / var(--tw-border-opacity))}.hover\:border-indigo-500:hover{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity))}.hover\:bg-white\/5:hover{background-color:rgb(255 255 255 / 0.05)}.hover\:bg-emerald-600:hover{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity))}.hover\:bg-indigo-500:hover{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-indigo-200:hover{--tw-text-opacity:1;color:rgb(199 210 254 / var(--tw-text-opacity))}.hover\:text-zinc-200:hover{--tw-text-opacity:1;color:rgb(228 228 231 / var(--tw-text-opacity))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-4:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-inset:focus{--tw-ring-inset:inset}.focus\:ring-white:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity))}.focus\:ring-emerald-900:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(6 78 59 / var(--tw-ring-opacity))}.focus\:ring-indigo-900:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(49 46 129 / var(--tw-ring-opacity))}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:border-emerald-900:disabled{--tw-border-opacity:1;border-color:rgb(6 78 59 / var(--tw-border-opacity))}.disabled\:border-indigo-900:disabled{--tw-border-opacity:1;border-color:rgb(49 46 129 / var(--tw-border-opacity))}.disabled\:bg-emerald-900:disabled{--tw-bg-opacity:1;background-color:rgb(6 78 59 / var(--tw-bg-opacity))}.disabled\:bg-indigo-900:disabled{--tw-bg-opacity:1;background-color:rgb(49 46 129 / var(--tw-bg-opacity))}.disabled\:text-emerald-400:disabled{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity))}.disabled\:text-indigo-400:disabled{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity))}.group:hover .group-hover\:text-white\/70{color:rgb(255 255 255 / 0.7)}@media (min-width: 640px){.sm\:p-6{padding:1.5rem}}@media (min-width: 768px){.md\:static{position:static}.md\:inset-auto{inset:auto}.md\:block{display:block}.md\:hidden{display:none}.md\:h-screen{height:100vh}.md\:w-64{width:16rem}.md\:translate-x-0{--tw-translate-x:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:flex{display:flex}}</style></head>
+
+<body class="bg-black text-gray-300" style="font-family: 'Inter'" x-data="{ sidebarOpen: false }" @keydown.escape="sidebarOpen = false">
+  <!-- Loading bar -->
+  <div class="loading-bar" style="display: none;"></div>
+  <!-- Spinner -->
+  <div class="spinner" style="display: none;">
+      <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+  </div>
+
+  <%- include('components/menu') %>
+
+  <%- include('components/navigation') %>
+
+      <!-- Main Content -->
+      <main class="flex-1">
+          <div class="flex flex-col min-h-screen">
+              <!-- Content -->
+              <script>
+                  // Get the current URL path
+                  const cPath = window.location.pathname;
+          
+                  // Get all navigation links in the sidebar
+                  const sidebarLinks = document.querySelectorAll('aside a');
+          
+                  // Function to normalize paths (remove trailing slash and query params)
+                  const normalizePath = (path) => path.replace(/\/$/, '').split('?')[0];
+          
+                  // Normalize current path
+                  const normalizedCurrentPath = normalizePath(cPath);
+          
+                  // Loop through each link
+                  sidebarLinks.forEach(link => {
+                      // Get the href attribute
+                      const href = link.getAttribute('href');
+                      if (!href) return;
+          
+                      // Remove any '../' from href and normalize
+                      const normalizedHref = normalizePath(href.replace(/^\.\./, ''));
+          
+                      // Check if the current path matches the link's href
+                      if (normalizedCurrentPath === normalizedHref) {
+                          // Add active classes to the link
+                          link.classList.add('bg-white/10');
+                          link.classList.add('text-white');
+          
+                          // Find and update the SVG within the active link
+                          const svg = link.querySelector('svg');
+                          if (svg) {
+                              svg.classList.add('text-indigo-300');
+                          }
+                      }
+                  });
+              </script>
+          
+              <script>
+                  // Remove loading elements after animation
+                  setTimeout(() => {
+                      document.querySelector('.loading-bar').style.display = 'none';
+                      document.querySelector('.spinner').style.display = 'none';
+                  }, 1000);
+              </script>
+              <div class="px-10 mt-4">
+                  <div class=" min-h-[490px] flex justify-center">
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center w-full mx-auto pb-4">
+      <!-- Welcome text and subtext on the left -->
+      <div class="flex flex-col">
+          <h1 class="text-xl font-semibold mb-0.5" style="font-family: 'Inter';">Dashboard</h1>
+          <p class="text-gray-400 text-md">View your available resources and an overview of your account.</p>
+      </div>
+
+      <!-- Breadcrumbs on the right -->
+      <nav aria-label="Breadcrumb" class="inline-flex py-2 px-4 rounded-xl bg-white/5 transition-colors duration-200">
+          <ol role="list" class="flex items-center space-x-2">
+              <li>
+                  <a href="#_" class="text-sm flex items-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors duration-200" aria-current="false">
+                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler size-4 icons-tabler-outline icon-tabler-home">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                          <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                          <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                      </svg>
+                      <span>Home</span>
+                  </a>
+              </li>
+              <li class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right size-4 text-zinc-400">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M9 6l6 6l-6 6"></path>
+                  </svg>
+              </li>
+              <li>
+                  <a href="#_" class="text-sm flex items-center gap-2 font-medium text-white/80 hover:text-white transition-colors duration-200" aria-current="page">
+                      Dashboard
+                  </a>
+              </li>
+          </ol>
+      </nav>
+  </div>
+
+  <!-- New Flex Container for Side-by-Side Layout -->
+  <div class="flex gap-8 mt-4">
+      <!-- Welcome Message on the Left -->
+      <div class="w-1/3">
+          <div class="w-full border-l-4 bg-indigo-500/15 border-indigo-500 rounded-r-3xl h-full">
+              <div class="p-6 flex flex-col h-full justify-between">
+                  <div>
+                      <h2 class="text-white/90 text-lg font-semibold mb-1">Welcome to <%= settings.name %>, <span class="text-white"><%= userinfo.username %></span>!</h2>
+                      <p class="text-white/60 text-sm leading-5">
+                          From the dashboard, you can manage and create servers.<br><br>Upgrade your servers: you can earn free coins via our <a href="<%= settings.discord_server %>" class="text-indigo-300 hover:text-indigo-200 transition">Discord server</a> or through other methods.
+                      </p>
+                  </div>
+                  <div class="mt-6">
+                      <a class="transition hover:scale-95 cursor-pointer font-semibold gap-2 grow-0 items-center justify-center rounded-xl shrink-0 disabled:cursor-not-allowed inline-flex border focus:outline-none px-4 py-[9px] bg-indigo-700 border-indigo-700 text-white hover:bg-indigo-500 hover:border-indigo-500 focus:ring-4 focus:ring-indigo-900 disabled:bg-indigo-900 disabled:border-indigo-900 disabled:text-indigo-400 text-sm" href="/servers/new">
+                          <span class="pointer-events-none shrink-0">Get started</span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <%
+  let ram = 0;
+  let disk = 0;
+  let cpu = 0;
+  let databases = 0;
+  let servers = pterodactyl.relationships.servers.data.length;
+  for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) {
+      ram = ram + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.memory == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.memory : 0);
+      disk = disk + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.disk == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.disk : 0);
+      cpu = cpu + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.cpu == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.cpu : 0);
+      databases = databases + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.databases == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.databases : 0);
+  }
+%>
+
+      <!-- Resource Cards on the Right in 2x2 Grid -->
+      <div class="w-2/3">
+          <div class="grid grid-cols-2 gap-4">
+              <!-- RAM Card -->
+              <div class="px-4 py-5 sm:p-6 bg-white/5 rounded-tl-3xl rounded-lg">
+                  <dt class="text-base font-medium text-white/70">Memory</dt>
+                  <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
+                      <div class="flex items-baseline text-2xl font-semibold text-white">
+                        <%= packages.ram/1024 + extraresources.ram/1024 - ram/1024 %>
+                      </div>
+                  </dd>
+              </div>
+
+              <!-- CPU Card -->
+              <div class="px-4 py-5 sm:p-6 bg-white/5 rounded-tr-3xl rounded-lg">
+                  <dt class="text-base font-medium text-white/70">CPU cores</dt>
+                  <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
+                      <div class="flex items-baseline text-2xl font-semibold text-white">
+                        <%= packages.cpu/100 + extraresources.cpu/100 - cpu/100 %>
+                      </div>
+                  </dd>
+              </div>
+
+              <!-- Disk Card -->
+              <div class="px-4 py-5 sm:p-6 bg-white/5 rounded-bl-3xl rounded-lg">
+                  <dt class="text-base font-medium text-white/70">Storage</dt>
+                  <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
+                      <div class="flex items-baseline text-2xl font-semibold text-white">
+                        <%= packages.disk/1024 + extraresources.disk/1024 - disk/1024 %>
+                      </div>
+                  </dd>
+              </div>
+
+              <!-- Server Slots Card -->
+              <div class="px-4 py-5 sm:p-6 bg-white/5 rounded-br-3xl rounded-lg">
+                  <dt class="text-base font-medium text-white/70">Server slots</dt>
+                  <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
+                      <div class="flex items-baseline text-2xl font-semibold text-white">
+                        <%= packages.servers + extraresources.servers/1 - servers/1  %>
+                      </div>
+                  </dd>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+<!-- Support & Changelog Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+  <!-- Support Section -->
+  <section>
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-semibold text-white">Support</h2>
+      <a href="<%= settings.discord_server %>" class="text-indigo-300 hover:text-indigo-200 font-medium">Get help via our Discord →</a>
+    </div>
+    <div class="p-6 bg-white/5 rounded-lg">
+      <p class="text-gray-400">Nothing here.</p>
+    </div>
+  </section>
+
+  <!-- Changelog Section -->
+  <section>
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-semibold text-white">Changelog</h2>
+      <!-- <a href="#" class="text-indigo-300 hover:text-indigo-200 font-medium">Go to changelog →</a> -->
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <p class="text-gray-300 text-sm">Introducing <%= settings.name %> - your favourite dashboard with a new look. </p>
+        <span class="text-sm text-gray-400">October 5</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="text-gray-300  text-sm">Note - Cupual is a modified fork from Lapsus Client</p>
+        <span class="text-sm text-gray-400">September 19</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="text-gray-300  text-sm">-</p>
+        <span class="text-sm text-gray-400">September 16</span>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- Help Section -->
+<div class="mt-8 hidden">
+  <div class="flex justify-between items-center w-full mx-auto pb-4">
+      <div class="flex flex-col">
+          <h2 class="text-xl font-semibold mb-0.5" style="font-family: 'Inter';">Getting Started</h2>
+          <p class="text-gray-400 text-md">Learn how to make the most of your hosting resources</p>
+      </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Resource Management Card -->
+      <div class="bg-white/5 rounded-2xl p-6">
+          <div class="flex items-center gap-4 mb-4">
+              <div class="p-3 bg-indigo-500/10 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400 w-6 h-6">
+                      <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                      <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                      <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                      <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Resources</h3>
+          </div>
+          <p class="text-white/70 mb-4">Split your available resources (RAM, CPU, Storage) across multiple servers. Allocate resources based on each server's needs.</p>
+          <ul class="space-y-2 text-white/60">
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                  Choose your resources on the Create Server page
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                  Modify resources after creation if needed via "Edit Server"
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                  The dashboard will automatically choose the recommended amount
+              </li>
+          </ul>
+      </div>
+
+      <!-- Earning Card -->
+      <div class="bg-white/5 rounded-2xl p-6">
+          <div class="flex items-center gap-4 mb-4">
+              <div class="p-3 bg-emerald-500/10 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400 w-6 h-6">
+                      <circle cx="12" cy="12" r="8"></circle>
+                      <path d="M9.5 9.5h5v5h-5z"></path>
+                  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Earning coins</h3>
+          </div>
+          <p class="text-white/70 mb-4">You can use coins to purchase resources. Multiple ways to earn them:</p>
+          <ul class="space-y-2 text-white/60">
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                  Join our Discord community for rewards and events
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                  Earn passively through the AFK page
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                  Invite friends using your referral code
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                  Stake your coins for additional earnings
+              </li>
+          </ul>
+      </div>
+
+      <!-- Daily Rewards Card -->
+      <div class="bg-white/5 rounded-2xl p-6">
+          <div class="flex items-center gap-4 mb-4">
+              <div class="p-3 bg-amber-500/10 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400 w-6 h-6">
+                      <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+                  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Daily Rewards</h3>
+          </div>
+          <p class="text-white/70 mb-4">Don't forget to claim your daily rewards! Visit daily to maintain your streak.</p>
+          <ul class="space-y-2 text-white/60">
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                  Check the dashboard for available rewards each day
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                  You'll get a free amount of coins whenever you claim
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                  Earn extra coins for every 30 day streak
+              </li>
+          </ul>
+      </div>
+
+      <!-- Server Management Card -->
+      <div class="bg-white/5 rounded-2xl p-6">
+          <div class="flex items-center gap-4 mb-4">
+              <div class="p-3 bg-blue-500/10 rounded-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 w-6 h-6">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Server Management</h3>
+          </div>
+          <p class="text-white/70 mb-4">Create and manage your servers.</p>
+          <ul class="space-y-2 text-white/60">
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  Create servers with your resources
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  Access your server control panel instantly
+              </li>
+              <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                  Upgrade resources as your needs grow
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>
+
+  
+<script>
+
+  // Function to fetch daily coins status
+  async function checkDailyCoins() {
+      try {
+          const response = await fetch('/api/dailystatus');
+          const data = await response.json();
+          if (data.text === '1') {
+              document.getElementById('dailyCoinsBanner').classList.remove('hidden');
+              document.getElementById('dailyCoinsBanner').classList.add('animate-fadeIn');
+          }
+      } catch (error) {
+          console.error('Error checking daily coins:', error);
+      }
+  }
+
+  // Function to fetch stats with caching
+  async function fetchStats() {
+      const cachedStats = localStorage.getItem('CupualStats2');
+      const cacheTime = localStorage.getItem('CupualStatsTime2');
+
+      if (cachedStats && cacheTime && (Date.now() - parseInt(cacheTime)) < 3600000) {
+          // Use cached data if it's less than an hour old
+          updateStatsDisplay(JSON.parse(cachedStats));
+      } else {
+          // Show loading spinner
+          document.getElementById('statsContainer').innerHTML = `
+              <div class="col-span-3 flex justify-center items-center">
+                  <span class="text-white">Give us a minute...</span>
+              </div>
+          `;
+
+          try {
+              const response = await fetch('/stats');
+              const data = await response.json();
+              
+              // Cache the new data
+              localStorage.setItem('CupualStats2', JSON.stringify(data));
+              localStorage.setItem('CupualStatsTime2', Date.now().toString());
+
+              updateStatsDisplay(data);
+          } catch (error) {
+              console.error('Error fetching stats:', error);
+              document.getElementById('statsContainer').innerHTML = `
+                  <div class="col-span-3 text-center text-red-500">
+                      Error fetching stats. Please try again later.
+                  </div>
+              `;
+          }
+      }
+  }
+
+  // Function to update stats display
+  function updateStatsDisplay(data) {
+      const statsContainer = document.getElementById('statsContainer');
+      statsContainer.innerHTML = `
+          <div class="bg-white/5 rounded-2xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-white mb-2">Users</h4>
+              <p class="text-3xl font-bold text-indigo-500">${data.users}</p>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-white mb-2">Servers</h4>
+              <p class="text-3xl font-bold text-indigo-500">${data.servers}</p>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-white mb-2">Nodes</h4>
+              <p class="text-3xl font-bold text-indigo-500">${data.nodes}</p>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-6 text-center">
+              <h4 class="text-lg font-semibold text-white mb-2">Locations</h4>
+              <p class="text-3xl font-bold text-indigo-500">${data.locations || '-'}</p>
+          </div>
+      `;
+  }
+
+  // Run functions when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+      checkDailyCoins();
+      fetchStats();
+  });
+</script>
+  
+</main>
+
+  </div>
+
+<style>
+#CV {
+  border-radius: 4px;
+}
+</style>
+  <script>
+      function setActiveTab() {
+          const currentPath = window.location.pathname;
+          const tabs = document.querySelectorAll('#tabs a');
+          tabs.forEach(tab => {
+              if (tab.getAttribute('href') === currentPath) {
+                  tab.classList.add('border-indigo-500', 'text-indigo-500', 'font-medium');
+                  tab.classList.remove('border-transparent', 'hover:border-gray-300', 'hover:text-white');
+              } else {
+                  tab.classList.remove('border-indigo-500', 'text-indigo-500', 'font-medium');
+                  tab.classList.add('border-transparent', 'hover:border-gray-300', 'hover:text-white');
+              }
+          });
+      }
+
+      setActiveTab();
+
+      document.querySelectorAll('#tabs a').forEach(tab => {
+          tab.addEventListener('click', (e) => {
+              e.preventDefault();
+              const href = e.currentTarget.getAttribute('href');
+              history.pushState(null, '', href);
+              window.location.href = href;
+              setActiveTab();
+          });
+      });
+
+      window.addEventListener('popstate', setActiveTab);
+  </script>
+</body>
+</html>
+<script>
+  var options = {
+    classname: 'loadingbar',
+    id: 'loadingbar'
+  };
+  var nanobar = new Nanobar(options);
+  function simulateLoading() {
+    nanobar.go(10); // Change this value to control the loading speed
+    setTimeout(function() {
+      nanobar.go(50);
+    }, 190); // Delay the progress update
+    setTimeout(function() {
+      nanobar.go(100);
+    }, 400); // Another delay
+  }
+  simulateLoading();
+</script>
+<style>
+  .loadingbar .bar {
+    background: #fb923c;
+    -webkit-box-shadow: 0px 4px 38px -15px #fb923c;
+    -moz-box-shadow: 0px 4px 38px -15px #fb923c;
+    box-shadow: 0px 4px 38px -15px #fb923c;
+    height: 1.85px;
+  }
+</style></div></div></main></div></body></html>

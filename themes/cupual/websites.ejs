@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= settings.name %> - Websites</title>
+    <meta name="description" content="List of available websites for <%= settings.name %>">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<%= settings.logo.url %>">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com?plugins=forms" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --background-color: #010103;
+            --text-color: #e5e7eb;
+            --text-muted: #9ca3af;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        
+        h1, h2, h3, h4, h5, h6,
+        .text-3xl, .text-2xl, .text-xl, .text-lg {
+            color: white;
+        }
+        
+        /* Loading animations */
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            animation: loading 1s ease-in-out;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .spinner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+            display: none;
+        }
+        
+        /* Transition effects */
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* Card styling */
+        .website-card {
+            background: rgba(31, 41, 55, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .website-card:hover {
+            background: rgba(31, 41, 55, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* Button styling */
+        .visit-btn {
+            background-color: var(--primary-color);
+            transition: all 0.2s ease;
+        }
+        
+        .visit-btn:hover {
+            background-color: #4338ca;
+            transform: scale(1.05);
+        }
+    </style>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    
+    <!-- Alpine JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="{ sidebarOpen: false }" @keydown.escape="sidebarOpen = false">
+    <!-- Loading indicators -->
+    <div class="loading-bar"></div>
+    <div class="spinner">
+        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    </div>
+
+    <!-- Include components -->
+    <%- include('components/menu') %>
+    <%- include('components/navigation') %>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="flex flex-col min-h-screen">
+            <div class="container mx-auto px-4 py-8">
+                <!-- Header section -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-bold mb-2">Websites</h1>
+                        <p class="text-gray-400">Here you have a list of the available websites on <%= settings.name %></p>
+                    </div>
+                    
+                    <!-- Breadcrumbs -->
+                    <nav aria-label="Breadcrumb" class="bg-white/5 hover:bg-white/10 transition-colors duration-200 rounded-xl py-2 px-4">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="/" class="text-sm flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                                    </svg>
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l6 6l-6 6"></path>
+                                </svg>
+                            </li>
+                            <li>
+                                <span class="text-sm font-medium text-white/80">Websites</span>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <!-- Websites list -->
+                <div class="grid gap-6 max-w-2xl mx-auto">
+                    <!-- Main Website -->
+                    <div class="website-card p-6 rounded-lg shadow-sm">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-lg font-semibold">Main Website</h3>
+                                <p class="text-gray-400 text-sm mt-1">The primary site of <%= settings.name %></p>
+                            </div>
+                            <a href="https://<%= settings.main_domain %>" target="_blank" rel="noopener noreferrer" 
+                               class="visit-btn text-white text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap">
+                                Visit Website
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Panel -->
+                    <div class="website-card p-6 rounded-lg shadow-sm">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-lg font-semibold">Control Panel</h3>
+                                <p class="text-gray-400 text-sm mt-1">Manage your server(s) with our panel</p>
+                            </div>
+                            <a href="<%= settings.pterodactyl.domain %>" target="_blank" rel="noopener noreferrer" 
+                               class="visit-btn text-white text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap">
+                                Access Panel
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Discord Server -->
+                    <div class="website-card p-6 rounded-lg shadow-sm">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-lg font-semibold">Discord Community</h3>
+                                <p class="text-gray-400 text-sm mt-1">Join our community on Discord</p>
+                            </div>
+                            <a href="<%= settings.discord_server %>" target="_blank" rel="noopener noreferrer" 
+                               class="visit-btn text-white text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap">
+                                Join Server
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Set active navigation item based on current path
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                const linkPath = new URL(link.href).pathname;
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                }
+            });
+            
+            // Show loading indicators temporarily
+            setTimeout(() => {
+                document.querySelector('.loading-bar').style.display = 'block';
+                document.querySelector('.spinner').style.display = 'block';
+                
+                setTimeout(() => {
+                    document.querySelector('.loading-bar').style.display = 'none';
+                    document.querySelector('.spinner').style.display = 'none';
+                }, 1000);
+            }, 100);
+        });
+
+        // Copy password function (if needed elsewhere)
+        function copyPassword() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput) {
+                navigator.clipboard.writeText(passwordInput.value)
+                    .then(() => {
+                        // Show a toast notification instead of alert
+                        console.log('Password copied to clipboard');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy password:', err);
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

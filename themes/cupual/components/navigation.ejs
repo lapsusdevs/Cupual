@@ -1,0 +1,98 @@
+<div class="flex min-h-screen">
+  <!-- Overlay for mobile sidebar -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" x-show="sidebarOpen" @click="sidebarOpen = false" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-50" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0" style="display: none;"></div>
+
+  <!-- Sidebar -->
+  <aside class="backdrop-blur-lg fixed inset-0 z-50 transform md:translate-x-0 md:static md:inset-auto md:h-screen md:w-64 border-r border-b rounded-br-3xl border-white/5 bg-indigo-900/10 sidebar-transition -translate-x-full" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+      <div class="flex flex-col h-full relative">
+          <!-- Close button for mobile -->
+          <button @click="sidebarOpen = false" class="md:hidden absolute top-4 right-4 text-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+          </button>
+
+          <!-- Header -->
+          <div class="flex items-center mt-2 mb-4 py-2 mx-2 border-b border-white/5">
+              <button onclick="window.location.href='/'" class="flex items-center gap-1.5 w-full px-3 py-1.5 text-zinc-400 cursor-pointer hover:bg-white/5 transition rounded-md">
+                  <div class="flex items-center gap-1.5">
+                      <div class="w-6 h-6 bg-indigo-950 rounded-md flex items-center justify-center text-indigo-300 pt-0.5 text-xs">
+                        <%= userinfo.username.split(' ')[0].charAt(0).toUpperCase() %>
+                      </div>
+                      <span class="ml-1 text-sm">
+                        <%= userinfo.username %>
+                      </span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-auto">
+                      <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd"></path>
+                    </svg>                          
+              </button>
+          </div>
+
+          <!-- Navigation -->
+          <div class="px-2 overflow-y-auto">
+              <a href="../dashboard" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="w-4 h-4" color="currentColor">
+                      <path fill="currentColor" fill-rule="evenodd" d="M12.523 1.336a2 2 0 00-1.046 0c-.397.108-.732.37-.999.58l-.074.059-6.86 5.335c-.377.292-.709.55-.956.884a3 3 0 00-.477.975c-.112.4-.112.82-.111 1.298v7.371c0 .528 0 .982.03 1.357.033.395.104.789.297 1.167a3 3 0 001.311 1.311c.378.193.772.264 1.167.296.375.031.83.031 1.356.031H17.84c.527 0 .981 0 1.356-.03.395-.033.789-.104 1.167-.297a3 3 0 001.311-1.311c.193-.378.264-.772.296-1.167.031-.375.031-.83.031-1.356v-7.372c0-.477.001-.897-.111-1.298a2.999 2.999 0 00-.477-.975c-.247-.334-.58-.592-.956-.884l-6.86-5.335-.074-.059c-.267-.21-.602-.472-1-.58zM8 16a1 1 0 100 2h8a1 1 0 100-2H8z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="text-sm">Dashboard</span>
+              </a>
+
+              <a href="../websites" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                  <path fill-rule="evenodd" d="M4.5 9.75a6 6 0 0 1 11.573-2.226 3.75 3.75 0 0 1 4.133 4.303A4.5 4.5 0 0 1 18 20.25H6.75a5.25 5.25 0 0 1-2.23-10.004 6.072 6.072 0 0 1-.02-.496Z" clip-rule="evenodd"></path>
+                </svg>                      
+              <span class="text-sm">Websites</span>
+          </a>
+
+              <!-- Project Section -->
+              <div class="mt-4">
+                  <div class="px-3 py-1.5 text-xs text-white/50 font-mono uppercase">Compute</div>
+                  <a href="../servers" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="w-4 h-4" color="currentColor">
+                          <path fill="currentColor" fill-rule="evenodd" d="M5.161 7h7.678c.527 0 .981 0 1.356.03.395.033.789.104 1.167.297a3 3 0 011.311 1.311c.193.378.264.772.296 1.167.031.375.031.83.031 1.356v7.678c0 .527 0 .982-.03 1.356-.033.395-.104.789-.297 1.167a3 3 0 01-1.311 1.311c-.378.193-.772.264-1.167.296-.375.031-.83.031-1.356.031H5.16c-.527 0-.981 0-1.356-.03-.395-.033-.789-.104-1.167-.297a3 3 0 01-1.311-1.311c-.193-.378-.264-.772-.296-1.167C1 19.82 1 19.365 1 18.838v-7.677c0-.527 0-.981.03-1.356.033-.395.104-.789.297-1.167a3 3 0 011.311-1.311c.378-.193.772-.264 1.167-.296C4.18 7 4.635 7 5.161 7z" clip-rule="evenodd"></path>
+                          <path fill="currentColor" d="M18.838 1h-7.677c-.527 0-.981 0-1.356.03-.395.033-.789.104-1.167.297a3 3 0 00-1.311 1.311c-.193.378-.264.772-.296 1.167C7.003 4.141 7 4.541 7 5h5.88c.49 0 1.02 0 1.478.037.519.043 1.205.148 1.912.508a5 5 0 012.185 2.185c.36.707.465 1.393.508 1.912.037.459.037.989.037 1.477V17c.459 0 .86-.003 1.195-.03.395-.033.789-.104 1.167-.297a3 3 0 001.311-1.311c.193-.378.264-.772.296-1.167.031-.375.031-.83.031-1.356V5.16c0-.527 0-.981-.03-1.356-.033-.395-.104-.789-.297-1.167a3 3 0 00-1.311-1.311c-.378-.193-.772-.264-1.167-.296C19.82 1 19.365 1 18.838 1z">
+                          </path>
+                      </svg>
+                      <span class="text-sm">Servers</span>
+                  </a>
+                  <a href="../account" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                          <path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span class="text-sm">SFTP</span>
+                  </a>
+                  <!-- more items -->
+              </div>
+
+              <!-- Economy -->
+              <div class="mt-4">
+                  <div class="px-3 py-1.5 text-xs text-white/50 font-mono uppercase">Economy</div>
+                  <a href="../wallet" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                          <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z"></path>
+                          <path fill-rule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span class="text-sm">Wallet</span>
+                  </a>
+                  <a href="../afk" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                          <path fill-rule="evenodd" d="M17.303 5.197A7.5 7.5 0 0 0 6.697 15.803a.75.75 0 0 1-1.061 1.061A9 9 0 1 1 21 10.5a.75.75 0 0 1-1.5 0c0-1.92-.732-3.839-2.197-5.303Zm-2.121 2.121a4.5 4.5 0 0 0-6.364 6.364.75.75 0 1 1-1.06 1.06A6 6 0 1 1 18 10.5a.75.75 0 0 1-1.5 0c0-1.153-.44-2.303-1.318-3.182Zm-3.634 1.314a.75.75 0 0 1 .82.311l5.228 7.917a.75.75 0 0 1-.777 1.148l-2.097-.43 1.045 3.9a.75.75 0 0 1-1.45.388l-1.044-3.899-1.601 1.42a.75.75 0 0 1-1.247-.606l.569-9.47a.75.75 0 0 1 .554-.68Z" clip-rule="evenodd"></path>
+                      </svg>
+
+                      <span class="text-sm">AFK Page</span>
+                  </a>
+                  <a href="../store" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                          <path d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z"></path>
+                          <path fill-rule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span class="text-sm">Store</span>
+                  </a>
+                  <!-- more items -->
+              </div>
+
+              
+          </div>
+      </div>
+  </aside>
