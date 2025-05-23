@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "name": "Cupual",
   "logo": {
     "url": "/assets/img/logo_background.png"
@@ -116,11 +116,11 @@
           },
 
           "premium": {
-            "ram": 2048,
+            "ram": 10240,
             "disk": 10240,
-            "cpu": 200,
+            "cpu": 1000,
             "databases": 3,
-            "servers": 3
+            "servers": 5
           }
         },
         "rolePackages": {
@@ -200,9 +200,9 @@
         "nodejs": {
           "display": "Code - NodeJS",
           "minimum": {
-            "ram": 512,
-            "disk": 512,
-            "cpu": 75
+            "ram": null,
+            "disk": null,
+            "cpu": null
           },
           "maximum": {
             "ram": null,

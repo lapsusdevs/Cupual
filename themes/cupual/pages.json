@@ -9,7 +9,7 @@
         "updateservers": "/servers",
         "failedcreateserver": "/servers/new",
         "failedmodifyserver": "/edit",
-        "setplan": "/admin",
+        "setplan": "/dashboard",
         "failedsetplan": "/admin",
         "createserverdisabled": "/servers/new?err=disabled",
         "modifyserverdisabled": "/servers/modify?err=disabled",

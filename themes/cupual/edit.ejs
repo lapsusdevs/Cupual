@@ -1,510 +1,340 @@
 <html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= settings.name %> - Dashboard</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
-
-  <style>
-      .text-3xl {
-          color: white;
-      }
-
-      .text-2xl {
-          color: white;
-      }
-
-      .text-xl {
-          color: white;
-      }
-
-      .text-lg {
-          color: white;
-      }
-
-      h3 {
-          color: white;
-      }
-
-      h2 {
-          color: white
-      }
-
-      h3 {
-          color: white
-      }
-
-      /* Loading bar animation */
-      @keyframes loading {
-          0% { width: 0%; }
-          100% { width: 100%; }
-      }
-
-      /* Spinner animation */
-      @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-      }
-
-      .loading-bar {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          height: 2px;
-          background: linear-gradient(to right, #4f46e5, #818cf8);
-          animation: loading 1s ease-in-out;
-          z-index: 1000;
-      }
-
-      .spinner {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          animation: spin 1s linear infinite;
-          z-index: 1000;
-      }
-
-      /* Sidebar transition for mobile */
-      .sidebar-transition {
-          transition: transform 0.3s ease-in-out;
-      }
-  </style>
-
-  <!-- SEO - Meta Tags -->
-  <meta name="description" content="Experience seamless deployment with Fractal's powerful dashboard. Free serverless hosting for web projects, game servers, and containerized applications with automated scaling, monitoring, and zero maintenance.">
-
-  <meta name="keywords" content="container management, serverless hosting, cloud platform, container orchestration, Fractal dashboard, free hosting, game server hosting, Docker containers, cloud deployment, DevOps platform, container scaling, microservices management, cloud infrastructure, container monitoring, Fractal cloud">
-
-  <meta name="author" content="SRYDEN, Inc.">
-
-  <!-- Additional recommended meta tags -->
-  <meta property="og:title" content="Fractal">
-  <meta property="og:description" content="We're Fractal, a free hosting platform for your projects, game servers, and more. Built for cloud-native and serverless projects by design.">
-  <meta property="og:type" content="website">
-
-  <!-- Recommended additional tag for mobile optimization -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.right-4{right:1rem}.top-4{top:1rem}.z-40{z-index:40}.z-50{z-index:50}.col-span-3{grid-column:span 3 / span 3}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:0.25rem}.ml-auto{margin-left:auto}.mr-1{margin-right:0.25rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.ml-2{margin-left:0.5rem}.mt-1{margin-top:0.25rem}.mt-5{margin-top:1.25rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.size-4{width:1rem;height:1rem}.size-5{width:1.25rem;height:1.25rem}.h-2{height:0.5rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.min-h-screen{min-height:100vh}.min-h-\[490px\]{min-height:490px}.w-2{width:0.5rem}.w-4{width:1rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-full{width:100%}.max-w-7xl{max-width:80rem}.flex-1{flex:1 1 0%}.flex-grow{flex-grow:1}.-translate-x-full{--tw-translate-x:-100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.cursor-default{cursor:default}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-0\.5{gap:0.125rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-6{gap:1.5rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-md{border-radius:0.375rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.rounded-b-2xl{border-bottom-right-radius:1rem;border-bottom-left-radius:1rem}.rounded-t-2xl{border-top-left-radius:1rem;border-top-right-radius:1rem}.rounded-br-3xl{border-bottom-right-radius:1.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.border-transparent{border-color:transparent}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity))}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity))}.bg-indigo-900\/10{background-color:rgb(49 46 129 / 0.1)}.bg-indigo-950{--tw-bg-opacity:1;background-color:rgb(30 27 75 / var(--tw-bg-opacity))}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.bg-indigo-500{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity))}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-opacity-50{--tw-bg-opacity:0.5}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-indigo-900\/15{--tw-gradient-from:rgb(49 46 129 / 0.15) var(--tw-gradient-from-position);--tw-gradient-to:rgb(49 46 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-white\/5{--tw-gradient-to:rgb(255 255 255 / 0.05) var(--tw-gradient-to-position)}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-1\.5{padding-bottom:0.375rem}.pl-2{padding-left:0.5rem}.pr-4{padding-right:1rem}.pt-0\.5{padding-top:0.125rem}.pt-2{padding-top:0.5rem}.pb-4{padding-bottom:1rem}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-6{line-height:1.5rem}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.text-white\/50{color:rgb(255 255 255 / 0.5)}.text-white\/70{color:rgb(255 255 255 / 0.7)}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170 / var(--tw-text-opacity))}.text-gray-200{--tw-text-opacity:1;color:rgb(229 231 235 / var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.text-white\/80{color:rgb(255 255 255 / 0.8)}.opacity-25{opacity:0.25}.opacity-75{opacity:0.75}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.delay-100{transition-delay:100ms}.duration-200{transition-duration:200ms}.ease-in-out{transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)}.hover\:scale-95:hover{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-white\/5:hover{background-color:rgb(255 255 255 / 0.05)}.hover\:bg-indigo-700:hover{--tw-bg-opacity:1;background-color:rgb(67 56 202 / var(--tw-bg-opacity))}.hover\:bg-white\/20:hover{background-color:rgb(255 255 255 / 0.2)}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-zinc-200:hover{--tw-text-opacity:1;color:rgb(228 228 231 / var(--tw-text-opacity))}.focus\:border-indigo-500:focus{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-inset:focus{--tw-ring-inset:inset}.focus\:ring-white:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity))}.focus\:ring-indigo-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(99 102 241 / var(--tw-ring-opacity))}.focus\:ring-offset-2:focus{--tw-ring-offset-width:2px}.group:hover .group-hover\:text-white\/70{color:rgb(255 255 255 / 0.7)}@media (min-width: 640px){.sm\:col-span-2{grid-column:span 2 / span 2}.sm\:ml-6{margin-left:1.5rem}.sm\:mt-0{margin-top:0px}.sm\:flex{display:flex}.sm\:flex-shrink-0{flex-shrink:0}.sm\:items-start{align-items:flex-start}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:text-sm{font-size:0.875rem;line-height:1.25rem}}@media (min-width: 768px){.md\:static{position:static}.md\:inset-auto{inset:auto}.md\:hidden{display:none}.md\:h-screen{height:100vh}.md\:w-64{width:16rem}.md\:translate-x-0{--tw-translate-x:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}</style></head>
-
-<body class="bg-black text-gray-300" style="font-family: 'Inter'" x-data="{ sidebarOpen: false }" @keydown.escape="sidebarOpen = false">
-  <!-- Loading bar -->
-  <div class="loading-bar" style="display: none;"></div>
-  <!-- Spinner -->
-  <div class="spinner" style="display: none;">
-      <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-  </div>
-  <nav class="bg-gradient-to-r from-indigo-900/15 to-white/5 pr-4 pl-2 py-2 border-b border-white/5 flex items-center justify-between">
-      <!-- Mobile menu button -->
-      <button @click="sidebarOpen = true" class="md:hidden text-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-      </button>
-      <!-- Left side -->
-      <div class="flex items-center space-x-2 hover:bg-white/5 rounded-md px-2 py-1 transition duration-200 hover:scale-95 cursor-pointer" onclick="window.location.href='/'">
-          <img src="https://i.imgur.com/gD51l4P.png" alt="Fractal Logo" class="w-auto h-5 mb-0.5">
-          <span class="text-gray-500 text-sm">|</span>
-          <span class="text-white text-sm">Fractal</span>
-      </div>
-
-      <!-- Right side -->
-      <div class="flex items-center space-x-4 text-sm">
-          <a href="https://sryden.com" class="text-white/70 hover:text-white transition hover:scale-95 group bg-white/5 px-4 pb-1.5 pt-2 rounded-md shadow-sm border border-white/5">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 inline-flex mr-1 text-white/50 mb-0.5 group-hover:text-white/70 transition">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"></path>
-              </svg>
-              Apps
-          </a>
-          <a href="/experiments" class="text-white/70 hover:text-white transition hover:scale-95 group bg-white/5 px-4 pb-1.5 pt-2 rounded-md shadow-sm border border-white/5">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 inline-flex mr-1 text-white/50 mb-0.5 group-hover:text-white/70 transition">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"></path>
-              </svg>
-              Experiments
-          </a>
-          <a href="/wallet" class="text-white/70 hover:text-white transition hover:scale-95 group bg-white/5 px-4 pb-1.5 pt-2 rounded-md shadow-sm border border-white/5">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 inline-flex mr-1 text-white/50 mb-0.5 group-hover:text-white/70 transition">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"></path>
-              </svg>
-              151.50 FRAC
-          </a>
-          <a href="https://status.frac.gg" class="text-white/70 hover:text-white transition hover:scale-95 group bg-white/5 px-4 pb-1.5 pt-2 rounded-md shadow-sm border border-white/5">
-              <div class="w-2 h-2 rounded bg-emerald-500 inline-flex mr-1 mb-0.5"></div>
-              <span>Systems operational</span>
-          </a>
-      </div>
-  </nav>
-  <div class="flex min-h-screen">
-      <!-- Overlay for mobile sidebar -->
-      <div class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" x-show="sidebarOpen" @click="sidebarOpen = false" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-50" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-50" x-transition:leave-end="opacity-0" style="display: none;"></div>
-
-      <!-- Sidebar -->
-      <aside class="backdrop-blur-lg fixed inset-0 z-50 transform md:translate-x-0 md:static md:inset-auto md:h-screen md:w-64 border-r border-b rounded-br-3xl border-white/5 bg-indigo-900/10 sidebar-transition -translate-x-full" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-          <div class="flex flex-col h-full relative">
-              <!-- Close button for mobile -->
-              <button @click="sidebarOpen = false" class="md:hidden absolute top-4 right-4 text-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-              </button>
-
-              <!-- Header -->
-              <div class="flex items-center mt-2 mb-4 py-2 mx-2 border-b border-white/5">
-                  <button onclick="window.location.href='/'" class="flex items-center gap-1.5 w-full px-3 py-1.5 text-zinc-400 cursor-pointer hover:bg-white/5 transition rounded-md">
-                      <div class="flex items-center gap-1.5">
-                          <div class="w-6 h-6 bg-indigo-950 rounded-md flex items-center justify-center text-indigo-300 pt-0.5 text-xs">
-                              J
-                          </div>
-                          <span class="ml-1 text-sm">
-                              justmanucrack
-                          </span>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-auto">
-                          <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd"></path>
-                        </svg>                          
-                  </button>
-              </div>
-
-              <!-- Navigation -->
-              <div class="px-2 overflow-y-auto">
-                  <a href="../dashboard" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="w-4 h-4" color="currentColor">
-                          <path fill="currentColor" fill-rule="evenodd" d="M12.523 1.336a2 2 0 00-1.046 0c-.397.108-.732.37-.999.58l-.074.059-6.86 5.335c-.377.292-.709.55-.956.884a3 3 0 00-.477.975c-.112.4-.112.82-.111 1.298v7.371c0 .528 0 .982.03 1.357.033.395.104.789.297 1.167a3 3 0 001.311 1.311c.378.193.772.264 1.167.296.375.031.83.031 1.356.031H17.84c.527 0 .981 0 1.356-.03.395-.033.789-.104 1.167-.297a3 3 0 001.311-1.311c.193-.378.264-.772.296-1.167.031-.375.031-.83.031-1.356v-7.372c0-.477.001-.897-.111-1.298a2.999 2.999 0 00-.477-.975c-.247-.334-.58-.592-.956-.884l-6.86-5.335-.074-.059c-.267-.21-.602-.472-1-.58zM8 16a1 1 0 100 2h8a1 1 0 100-2H8z" clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="text-sm">Dashboard</span>
-                  </a>
-
-                  <a href="../webhosting" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                      <path fill-rule="evenodd" d="M4.5 9.75a6 6 0 0 1 11.573-2.226 3.75 3.75 0 0 1 4.133 4.303A4.5 4.5 0 0 1 18 20.25H6.75a5.25 5.25 0 0 1-2.23-10.004 6.072 6.072 0 0 1-.02-.496Z" clip-rule="evenodd"></path>
-                    </svg>                      
-                  <span class="text-sm">Websites</span>
-              </a>
-
-                  <div onclick="alert('Coming soon. The feature hasn\'t been implemented yet.')" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" stroke-width="2">
-                          <path d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"></path>
-                      </svg>
-                      <span class="text-sm flex-grow">Search</span>
-                      <div class="flex gap-0.5">
-                          <kbd class="px-1 py-0.5 text-xs bg-black/20 border border-white/10 rounded text-white/70">⌘</kbd>
-                          <kbd class="px-1 py-0.5 text-xs bg-black/20 border border-white/10 rounded text-white/70">K</kbd>
-                      </div>
-                  </div>
-
-                  <!-- Project Section -->
-                  <div class="mt-4">
-                      <div class="px-3 py-1.5 text-xs text-white/50 font-mono uppercase">Compute</div>
-                      <a href="../servers" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="w-4 h-4" color="currentColor">
-                              <path fill="currentColor" fill-rule="evenodd" d="M5.161 7h7.678c.527 0 .981 0 1.356.03.395.033.789.104 1.167.297a3 3 0 011.311 1.311c.193.378.264.772.296 1.167.031.375.031.83.031 1.356v7.678c0 .527 0 .982-.03 1.356-.033.395-.104.789-.297 1.167a3 3 0 01-1.311 1.311c-.378.193-.772.264-1.167.296-.375.031-.83.031-1.356.031H5.16c-.527 0-.981 0-1.356-.03-.395-.033-.789-.104-1.167-.297a3 3 0 01-1.311-1.311c-.193-.378-.264-.772-.296-1.167C1 19.82 1 19.365 1 18.838v-7.677c0-.527 0-.981.03-1.356.033-.395.104-.789.297-1.167a3 3 0 011.311-1.311c.378-.193.772-.264 1.167-.296C4.18 7 4.635 7 5.161 7z" clip-rule="evenodd"></path>
-                              <path fill="currentColor" d="M18.838 1h-7.677c-.527 0-.981 0-1.356.03-.395.033-.789.104-1.167.297a3 3 0 00-1.311 1.311c-.193.378-.264.772-.296 1.167C7.003 4.141 7 4.541 7 5h5.88c.49 0 1.02 0 1.478.037.519.043 1.205.148 1.912.508a5 5 0 012.185 2.185c.36.707.465 1.393.508 1.912.037.459.037.989.037 1.477V17c.459 0 .86-.003 1.195-.03.395-.033.789-.104 1.167-.297a3 3 0 001.311-1.311c.193-.378.264-.772.296-1.167.031-.375.031-.83.031-1.356V5.16c0-.527 0-.981-.03-1.356-.033-.395-.104-.789-.297-1.167a3 3 0 00-1.311-1.311c-.378-.193-.772-.264-1.167-.296C19.82 1 19.365 1 18.838 1z">
-                              </path>
-                          </svg>
-                          <span class="text-sm">Servers</span>
-                      </a>
-                      <a href="../account" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                              <path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd"></path>
-                          </svg>
-                          <span class="text-sm">SFTP</span>
-                      </a>
-                      <!-- more items -->
-                  </div>
-
-                  <!-- Economy -->
-                  <div class="mt-4">
-                      <div class="px-3 py-1.5 text-xs text-white/50 font-mono uppercase">Economy</div>
-                      <a href="../wallet" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                              <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z"></path>
-                              <path fill-rule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd"></path>
-                          </svg>
-                          <span class="text-sm">Wallet</span>
-                      </a>
-                      <a href="../afk" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                              <path fill-rule="evenodd" d="M17.303 5.197A7.5 7.5 0 0 0 6.697 15.803a.75.75 0 0 1-1.061 1.061A9 9 0 1 1 21 10.5a.75.75 0 0 1-1.5 0c0-1.92-.732-3.839-2.197-5.303Zm-2.121 2.121a4.5 4.5 0 0 0-6.364 6.364.75.75 0 1 1-1.06 1.06A6 6 0 1 1 18 10.5a.75.75 0 0 1-1.5 0c0-1.153-.44-2.303-1.318-3.182Zm-3.634 1.314a.75.75 0 0 1 .82.311l5.228 7.917a.75.75 0 0 1-.777 1.148l-2.097-.43 1.045 3.9a.75.75 0 0 1-1.45.388l-1.044-3.899-1.601 1.42a.75.75 0 0 1-1.247-.606l.569-9.47a.75.75 0 0 1 .554-.68Z" clip-rule="evenodd"></path>
-                          </svg>
-
-                          <span class="text-sm">AFK Page</span>
-                      </a>
-                      <a href="../referrals" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                              <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z"></path>
-                          </svg>
-
-                          <span class="text-sm">Referrals</span>
-                      </a>
-                      <a href="../store" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                              <path d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z"></path>
-                              <path fill-rule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z" clip-rule="evenodd"></path>
-                          </svg>
-                          <span class="text-sm">Store</span>
-                      </a>
-                      <a href="../staking" class="flex items-center gap-2 px-3 py-1.5 text-white/70 hover:bg-white/5 transition rounded-md">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                              <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 0 1 8.25-8.25.75.75 0 0 1 .75.75v6.75H18a.75.75 0 0 1 .75.75 8.25 8.25 0 0 1-16.5 0Z" clip-rule="evenodd"></path>
-                              <path fill-rule="evenodd" d="M12.75 3a.75.75 0 0 1 .75-.75 8.25 8.25 0 0 1 8.25 8.25.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75V3Z" clip-rule="evenodd"></path>
-                          </svg>
-                          <span class="text-sm">Staking</span>
-                      </a>
-                      <!-- more items -->
-                  </div>
-
-                  
-              </div>
-          </div>
-      </aside>
-
-      <!-- Main Content -->
-      <main class="flex-1">
-          <div class="flex flex-col min-h-screen">
-              <!-- Content -->
-              <script>
-                  // Get the current URL path
-                  const cPath = window.location.pathname;
-          
-                  // Get all navigation links in the sidebar
-                  const sidebarLinks = document.querySelectorAll('aside a');
-          
-                  // Function to normalize paths (remove trailing slash and query params)
-                  const normalizePath = (path) => path.replace(/\/$/, '').split('?')[0];
-          
-                  // Normalize current path
-                  const normalizedCurrentPath = normalizePath(cPath);
-          
-                  // Loop through each link
-                  sidebarLinks.forEach(link => {
-                      // Get the href attribute
-                      const href = link.getAttribute('href');
-                      if (!href) return;
-          
-                      // Remove any '../' from href and normalize
-                      const normalizedHref = normalizePath(href.replace(/^\.\./, ''));
-          
-                      // Check if the current path matches the link's href
-                      if (normalizedCurrentPath === normalizedHref) {
-                          // Add active classes to the link
-                          link.classList.add('bg-white/10');
-                          link.classList.add('text-white');
-          
-                          // Find and update the SVG within the active link
-                          const svg = link.querySelector('svg');
-                          if (svg) {
-                              svg.classList.add('text-indigo-300');
-                          }
-                      }
-                  });
-              </script>
-          
-              <script>
-                  // Remove loading elements after animation
-                  setTimeout(() => {
-                      document.querySelector('.loading-bar').style.display = 'none';
-                      document.querySelector('.spinner').style.display = 'none';
-                  }, 1000);
-              </script>
-              <div class="px-10 mt-4">
-                  <div class=" min-h-[490px] flex justify-center">
-
-<main class="flex-grow container mx-auto px-4 py-8">
-  <div class="flex justify-between items-center w-full mx-auto pb-4">
-      <!-- Welcome text and subtext on the left -->
-      <div class="flex flex-col">
-          <h1 class="text-xl font-semibold mb-0.5" style="font-family: 'Inter';">Edit Server</h1>
-          <p class="text-gray-400 text-md">Update the resources of your Fractal server!</p>
-      </div>
-      <% for (let i = 0; i < pterodactyl.relationships.servers.data.length; i++) { %>
-        <%
-        let ram = 0;
-        let disk = 0;
-        let cpu = 0;
-        let servers = pterodactyl.relationships.servers.data.length;
-        for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) {
-            ram = ram + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.memory == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.memory : 0);
-            disk = disk + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.disk == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.disk : 0);
-            cpu = cpu + (typeof pterodactyl.relationships.servers.data[i].attributes.limits.cpu == "number" ? pterodactyl.relationships.servers.data[i].attributes.limits.cpu : 0);
-        }
-    %>
-                                <% if (req.query.id) { %>
-                                    <% if (pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id).length == 1) {
-                                        let serverinfo = pterodactyl.relationships.servers.data.filter(name => name.attributes.id == req.query.id)[0];
-                                        let attemptegg = null;
-                                        let attemptname = null;
-                                        for (let [name, value] of Object.entries(settings.api.client.eggs)) {
-                                            if (settings.api.client.eggs[name].info.egg == serverinfo.attributes.egg) {
-                                                attemptegg = settings.api.client.eggs[name];
-                                                attemptname = name;
-                                            };
-                                        };
-                                        let egginfo = attemptegg ? attemptegg.display : "???";
-                                    %>
-      <!-- Breadcrumbs on the right -->
-      <nav aria-label="Breadcrumb" class="inline-flex py-2 px-4 rounded-xl bg-white/5 transition-colors duration-200">
-          <ol role="list" class="flex items-center space-x-2">
-              <li>
-                  <a href="#_" class="text-sm flex items-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors duration-200" aria-current="false">
-                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler size-4 icons-tabler-outline icon-tabler-home">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                          <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
-                          <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                          <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
-                      </svg>
-                      <span>Home</span>
-                  </a>
-              </li>
-              <li class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right size-4 text-zinc-400">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M9 6l6 6l-6 6"></path>
-                  </svg>
-              </li>
-              <li>
-                  <a href="#_" class="text-sm flex items-center gap-2 font-medium text-white/80 hover:text-white transition-colors duration-200" aria-current="page">
-                      Edit Server
-                  </a>
-              </li>
-          </ol>
-      </nav>
-  </div>
-
-  <div class="max-w-7xl mx-auto">
-      <div class="bg-white/5 px-4 py-5 border-b border-white/10 rounded-t-2xl sm:px-6">
-          <div class="sm:flex sm:items-start sm:justify-between">
-              <div>
-                  <h3 class="text-lg leading-6 font-medium text-white">Edit server</h3>
-                  <p class="mt-1 text-sm text-gray-300">After purchasing extra resources, you can apply them here by editing the server.</p>
-              </div>
-              <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                  <a href="../delete?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>" type="button" class="ml-2 inline-flex items-center px-6 py-2 border border-white/10 shadow-sm font-medium rounded-full text-gray-200 bg-white/10 hover:bg-white/20 transition cursor-default sm:text-sm">Delete Server</a>
-              </div>
-          </div>
-      </div>
-      <div class="bg-white/5 rounded-b-2xl px-4 py-5 sm:px-6 text-gray-300 text-sm">
-          
-          
-          
-              
-              <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                      <label for="ram" class="block text-sm font-medium text-gray-400">Memory (GiB)</label>
-                      <div class="mt-1 flex rounded-xl shadow-sm">
-                          <input type="text" name="ram" id="ram" class="transition ease-in-out delay-100 block w-full flex-1 text-white rounded-full bg-white/10 border-white/10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= serverinfo.attributes.limits.memory/1024 %>">
-                      </div>
-                  </div>
-              </div><br>
-
-              <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                      <label for="cpu" class="block text-sm font-medium text-gray-400">CPU cores</label>
-                      <div class="mt-1 flex rounded-xl shadow-sm">
-                          <input type="text" name="cpu" id="cpu" class="transition ease-in-out delay-100 block w-full flex-1 text-white rounded-full bg-white/10 border-white/10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= serverinfo.attributes.limits.cpu/100 %>">
-                      </div>
-                  </div>
-              </div><br>
-
-              <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                      <label for="disk" class="block text-sm font-medium text-gray-400">Storage (GiB)</label>
-                      <div class="mt-1 flex rounded-xl shadow-sm">
-                          <input type="text" name="disk" id="disk" class="transition ease-in-out delay-100 block w-full flex-1 text-white rounded-full bg-white/10 border-white/10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= serverinfo.attributes.limits.disk/1024 %>">
-                      </div>
-                  </div>
-              </div><br><br>
-              <button onclick="submitForm()" class="transition ease-in-out delay-100 group relative flex w-auto justify-center rounded-full border border-transparent py-2 px-4 text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Apply Changes to Server
-              </button>
-          </div>
-          <% } %>
-          <% } %>
-          <% } %>
-          <script>
-              async function submitForm() {
-                  let ram = encodeURIComponent(document.getElementById("ram").value);
-                  let disk = encodeURIComponent(document.getElementById("disk").value);
-                  let cpu = encodeURIComponent(document.getElementById("cpu").value);
-                  document.location.href = `/modify?id=<%= req.query.id %>&ram=${ram*1024}&disk=${disk*1024}&cpu=${cpu*100}`;
-              };
-          </script>
-      
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= settings.name %> - Edit Server</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
   
-  </div>
-</main>
+    <style>
+        .text-3xl {
+            color: white;
+        }
+  
+        .text-2xl {
+            color: white;
+        }
+  
+        .text-xl {
+            color: white;
+        }
+  
+        .text-lg {
+            color: white;
+        }
+  
+        h3 {
+            color: white;
+        }
+  
+        h2 {
+            color: white
+        }
+  
+        h3 {
+            color: white
+        }
+  
+        /* Loading bar animation */
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+  
+        /* Spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+  
+        .loading-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(to right, #4f46e5, #818cf8);
+            animation: loading 1s ease-in-out;
+            z-index: 1000;
+        }
+  
+        .spinner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+  
+        /* Sidebar transition for mobile */
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+  
+      <!-- Recommended additional tag for mobile optimization -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}[type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{-webkit-appearance:none;appearance:none;background-color:#fff;border-color:#6b7280;border-width:1px;border-radius:0px;padding-top:0.5rem;padding-right:0.75rem;padding-bottom:0.5rem;padding-left:0.75rem;font-size:1rem;line-height:1.5rem;--tw-shadow:0 0 #0000;}[type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);border-color:#2563eb}input::placeholder,textarea::placeholder{color:#6b7280;opacity:1}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-date-and-time-value{min-height:1.5em;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{padding-top:0;padding-bottom:0}select{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");background-position:right 0.5rem center;background-repeat:no-repeat;background-size:1.5em 1.5em;padding-right:2.5rem;print-color-adjust:exact}[multiple],[size]:where(select:not([size="1"])){background-image:initial;background-position:initial;background-repeat:unset;background-size:initial;padding-right:0.75rem;print-color-adjust:unset}[type='checkbox'],[type='radio']{-webkit-appearance:none;appearance:none;padding:0;print-color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#6b7280;border-width:1px;--tw-shadow:0 0 #0000}[type='checkbox']{border-radius:0px}[type='radio']{border-radius:100%}[type='checkbox']:focus,[type='radio']:focus{outline:2px solid transparent;outline-offset:2px;--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:2px;--tw-ring-offset-color:#fff;--tw-ring-color:#2563eb;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}[type='checkbox']:checked,[type='radio']:checked{border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat}[type='checkbox']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='checkbox']:checked{-webkit-appearance:auto;appearance:auto}}[type='radio']:checked{background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");}@media (forced-colors: active) {[type='radio']:checked{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{border-color:transparent;background-color:currentColor}[type='checkbox']:indeterminate{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");border-color:transparent;background-color:currentColor;background-size:100% 100%;background-position:center;background-repeat:no-repeat;}@media (forced-colors: active) {[type='checkbox']:indeterminate{-webkit-appearance:auto;appearance:auto}}[type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{border-color:transparent;background-color:currentColor}[type='file']{background:unset;border-color:inherit;border-width:0;border-radius:0;padding:0;font-size:unset;line-height:inherit}[type='file']:focus{outline:1px solid ButtonText;outline:1px auto -webkit-focus-ring-color}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.right-4{right:1rem}.top-4{top:1rem}.z-40{z-index:40}.z-50{z-index:50}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mr-1{margin-right:0.25rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:0.25rem}.ml-auto{margin-left:auto}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mb-1{margin-bottom:0.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:0.25rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.size-5{width:1.25rem;height:1.25rem}.size-4{width:1rem;height:1rem}.h-2{height:0.5rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.h-4{height:1rem}.h-1\.5{height:0.375rem}.min-h-screen{min-height:100vh}.min-h-\[490px\]{min-height:490px}.w-2{width:0.5rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-4{width:1rem}.w-full{width:100%}.w-1\.5{width:0.375rem}.w-1\/3{width:33.333333%}.w-2\/3{width:66.666667%}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.grow-0{flex-grow:0}.-translate-x-full{--tw-translate-x:-100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-0\.5{gap:0.125rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-md{border-radius:0.375rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-r-3xl{border-top-right-radius:1.5rem;border-bottom-right-radius:1.5rem}.rounded-br-3xl{border-bottom-right-radius:1.5rem}.rounded-bl-3xl{border-bottom-left-radius:1.5rem}.rounded-tl-3xl{border-top-left-radius:1.5rem}.rounded-tr-3xl{border-top-right-radius:1.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-l-4{border-left-width:4px}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-emerald-700{--tw-border-opacity:1;border-color:rgb(4 120 87 / var(--tw-border-opacity))}.border-emerald-700\/30{border-color:rgb(4 120 87 / 0.3)}.border-indigo-500{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity))}.border-indigo-700{--tw-border-opacity:1;border-color:rgb(67 56 202 / var(--tw-border-opacity))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity))}.bg-indigo-900\/10{background-color:rgb(49 46 129 / 0.1)}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-indigo-950{--tw-bg-opacity:1;background-color:rgb(30 27 75 / var(--tw-bg-opacity))}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36 / var(--tw-bg-opacity))}.bg-amber-500\/10{background-color:rgb(245 158 11 / 0.1)}.bg-blue-400{--tw-bg-opacity:1;background-color:rgb(96 165 250 / var(--tw-bg-opacity))}.bg-blue-500\/10{background-color:rgb(59 130 246 / 0.1)}.bg-emerald-400{--tw-bg-opacity:1;background-color:rgb(52 211 153 / var(--tw-bg-opacity))}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-emerald-700{--tw-bg-opacity:1;background-color:rgb(4 120 87 / var(--tw-bg-opacity))}.bg-emerald-700\/15{background-color:rgb(4 120 87 / 0.15)}.bg-indigo-400{--tw-bg-opacity:1;background-color:rgb(129 140 248 / var(--tw-bg-opacity))}.bg-indigo-500\/10{background-color:rgb(99 102 241 / 0.1)}.bg-indigo-500\/15{background-color:rgb(99 102 241 / 0.15)}.bg-indigo-700{--tw-bg-opacity:1;background-color:rgb(67 56 202 / var(--tw-bg-opacity))}.bg-opacity-50{--tw-bg-opacity:0.5}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-indigo-900\/15{--tw-gradient-from:rgb(49 46 129 / 0.15) var(--tw-gradient-from-position);--tw-gradient-to:rgb(49 46 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-white\/5{--tw-gradient-to:rgb(255 255 255 / 0.05) var(--tw-gradient-to-position)}.p-3{padding:0.75rem}.p-6{padding:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-8{padding-top:2rem;padding-bottom:2rem}.py-\[9px\]{padding-top:9px;padding-bottom:9px}.pb-1\.5{padding-bottom:0.375rem}.pl-2{padding-left:0.5rem}.pr-4{padding-right:1rem}.pt-2{padding-top:0.5rem}.pt-0\.5{padding-top:0.125rem}.pb-4{padding-bottom:1rem}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-5{line-height:1.25rem}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.text-white\/50{color:rgb(255 255 255 / 0.5)}.text-white\/70{color:rgb(255 255 255 / 0.7)}.text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity))}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170 / var(--tw-text-opacity))}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity))}.text-white\/60{color:rgb(255 255 255 / 0.6)}.text-white\/80{color:rgb(255 255 255 / 0.8)}.text-white\/90{color:rgb(255 255 255 / 0.9)}.opacity-25{opacity:0.25}.opacity-75{opacity:0.75}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-200{transition-duration:200ms}.hover\:scale-95:hover{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-emerald-600:hover{--tw-border-opacity:1;border-color:rgb(5 150 105 / var(--tw-border-opacity))}.hover\:border-indigo-500:hover{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity))}.hover\:bg-white\/5:hover{background-color:rgb(255 255 255 / 0.05)}.hover\:bg-emerald-600:hover{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity))}.hover\:bg-indigo-500:hover{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-indigo-200:hover{--tw-text-opacity:1;color:rgb(199 210 254 / var(--tw-text-opacity))}.hover\:text-zinc-200:hover{--tw-text-opacity:1;color:rgb(228 228 231 / var(--tw-text-opacity))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-4:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-inset:focus{--tw-ring-inset:inset}.focus\:ring-white:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(255 255 255 / var(--tw-ring-opacity))}.focus\:ring-emerald-900:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(6 78 59 / var(--tw-ring-opacity))}.focus\:ring-indigo-900:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(49 46 129 / var(--tw-ring-opacity))}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:border-emerald-900:disabled{--tw-border-opacity:1;border-color:rgb(6 78 59 / var(--tw-border-opacity))}.disabled\:border-indigo-900:disabled{--tw-border-opacity:1;border-color:rgb(49 46 129 / var(--tw-border-opacity))}.disabled\:bg-emerald-900:disabled{--tw-bg-opacity:1;background-color:rgb(6 78 59 / var(--tw-bg-opacity))}.disabled\:bg-indigo-900:disabled{--tw-bg-opacity:1;background-color:rgb(49 46 129 / var(--tw-bg-opacity))}.disabled\:text-emerald-400:disabled{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity))}.disabled\:text-indigo-400:disabled{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity))}.group:hover .group-hover\:text-white\/70{color:rgb(255 255 255 / 0.7)}@media (min-width: 640px){.sm\:p-6{padding:1.5rem}}@media (min-width: 768px){.md\:static{position:static}.md\:inset-auto{inset:auto}.md\:block{display:block}.md\:hidden{display:none}.md\:h-screen{height:100vh}.md\:w-64{width:16rem}.md\:translate-x-0{--tw-translate-x:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:flex{display:flex}}</style>
+   
+</head>
+  
+<body class="bg-black text-gray-300" style="font-family: 'Inter'" x-data="{ sidebarOpen: false }" @keydown.escape="sidebarOpen = false">
+    <!-- Loading bar -->
+    <div class="loading-bar" style="display: none;"></div>
+    <!-- Spinner -->
+    <div class="spinner" style="display: none;">
+        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    </div>
+  
+    <%- include('components/menu') %>
+    <%- include('components/navigation') %>
 
+    <!-- Main Content -->
+    <main class="flex-1">
+        <div class="flex flex-col min-h-screen">
+            <!-- Content -->
+            <script>
+                // Get the current URL path
+                const cPath = window.location.pathname;
+        
+                // Get all navigation links in the sidebar
+                const sidebarLinks = document.querySelectorAll('aside a');
+        
+                // Function to normalize paths (remove trailing slash and query params)
+                const normalizePath = (path) => path.replace(/\/$/, '').split('?')[0];
+        
+                // Normalize current path
+                const normalizedCurrentPath = normalizePath(cPath);
+        
+                // Loop through each link
+                sidebarLinks.forEach(link => {
+                    // Get the href attribute
+                    const href = link.getAttribute('href');
+                    if (!href) return;
+        
+                    // Remove any '../' from href and normalize
+                    const normalizedHref = normalizePath(href.replace(/^\.\./, ''));
+        
+                    // Check if the current path matches the link's href
+                    if (normalizedCurrentPath === normalizedHref) {
+                        // Add active classes to the link
+                        link.classList.add('bg-white/10');
+                        link.classList.add('text-white');
+        
+                        // Find and update the SVG within the active link
+                        const svg = link.querySelector('svg');
+                        if (svg) {
+                            svg.classList.add('text-indigo-300');
+                        }
+                    }
+                });
+            </script>
+        
+            <script>
+                // Remove loading elements after animation
+                setTimeout(() => {
+                    document.querySelector('.loading-bar').style.display = 'none';
+                    document.querySelector('.spinner').style.display = 'none';
+                }, 1000);
+            </script>
+            <div class="px-10 mt-4">
+                <div class="min-h-[490px] flex justify-center">
+                    <main class="flex-grow container mx-auto px-4 py-8">
+                        <div class="flex justify-between items-center w-full mx-auto pb-4">
+                            <!-- Welcome text and subtext on the left -->
+                            <div class="flex flex-col">
+                                <h1 class="text-xl font-semibold mb-0.5" style="font-family: 'Inter';">Edit Server</h1>
+                                <p class="text-gray-400 text-md">Update the resources of your <%= settings.name %> server!</p>
+                            </div>
+                            
+                            <% if (req.query.id) { %>
+                                <% 
+                                let serverinfo = null;
+                                for (let i = 0; i < pterodactyl.relationships.servers.data.length; i++) {
+                                    if (pterodactyl.relationships.servers.data[i].attributes.id == req.query.id) {
+                                        serverinfo = pterodactyl.relationships.servers.data[i];
+                                        break;
+                                    }
+                                }
+                                
+                                if (serverinfo) { 
+                                    let attemptegg = null;
+                                    let attemptname = null;
+                                    for (let [name, value] of Object.entries(settings.api.client.eggs)) {
+                                        if (settings.api.client.eggs[name].info.egg == serverinfo.attributes.egg) {
+                                            attemptegg = settings.api.client.eggs[name];
+                                            attemptname = name;
+                                        };
+                                    };
+                                    let egginfo = attemptegg ? attemptegg.display : "???";
+                                %>
+                                <!-- Breadcrumbs on the right -->
+                                <nav aria-label="Breadcrumb" class="inline-flex py-2 px-4 rounded-xl bg-white/5 transition-colors duration-200">
+                                    <ol role="list" class="flex items-center space-x-2">
+                                        <li>
+                                            <a href="#_" class="text-sm flex items-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors duration-200" aria-current="false">
+                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler size-4 icons-tabler-outline icon-tabler-home">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                                                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                                                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+                                                </svg>
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right size-4 text-zinc-400">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M9 6l6 6l-6 6"></path>
+                                            </svg>
+                                        </li>
+                                        <li>
+                                            <a href="#_" class="text-sm flex items-center gap-2 font-medium text-white/80 hover:text-white transition-colors duration-200" aria-current="page">
+                                                Edit Server
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
 
-  </div>
+                            <div class="max-w-7xl mx-auto">
+                                <div class="bg-white/5 px-4 py-5 border-b border-white/10 rounded-t-2xl sm:px-6">
+                                    <div class="sm:flex sm:items-start sm:justify-between">
+                                        <div>
+                                            <h3 class="text-lg leading-6 font-medium text-white">Edit server</h3>
+                                            <p class="mt-1 text-sm text-gray-300">After purchasing extra resources, you can apply them here by editing the server.</p>
+                                        </div>
+                                        <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+                                            <a href="../delete?id=<%= serverinfo.attributes.id %>" type="button" class="ml-2 inline-flex items-center px-6 py-2 border border-white/10 shadow-sm font-medium rounded-full text-gray-200 bg-white/10 hover:bg-white/20 transition cursor-default sm:text-sm">Delete Server</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/5 rounded-b-2xl px-4 py-5 sm:px-6 text-gray-300 text-sm">
+                                    <div class="grid grid-cols-3 gap-6">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <label for="ram" class="block text-sm font-medium text-gray-400">Memory (GiB)</label>
+                                            <div class="mt-1 flex rounded-xl shadow-sm">
+                                                <input type="text" name="ram" id="ram" class="transition ease-in-out delay-100 block w-full flex-1 text-white rounded-full bg-white/10 border-white/10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= serverinfo.attributes.limits.memory/1024 %>">
+                                            </div>
+                                        </div>
+                                    </div><br>
 
-<style>
-#CV {
-  border-radius: 4px;
-}
-</style>
+                                    <div class="grid grid-cols-3 gap-6">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <label for="cpu" class="block text-sm font-medium text-gray-400">CPU cores</label>
+                                            <div class="mt-1 flex rounded-xl shadow-sm">
+                                                <input type="text" name="cpu" id="cpu" class="transition ease-in-out delay-100 block w-full flex-1 text-white rounded-full bg-white/10 border-white/10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= serverinfo.attributes.limits.cpu/100 %>">
+                                            </div>
+                                        </div>
+                                    </div><br>
 
-  <script>
-      // Function to highlight the active tab
-      function setActiveTab() {
-          const currentPath = window.location.pathname;
-          const tabs = document.querySelectorAll('#tabs a');
-          tabs.forEach(tab => {
-              if (tab.getAttribute('href') === currentPath) {
-                  tab.classList.add('border-indigo-500', 'text-indigo-500', 'font-medium');
-                  tab.classList.remove('border-transparent', 'hover:border-gray-300', 'hover:text-white');
-              } else {
-                  tab.classList.remove('border-indigo-500', 'text-indigo-500', 'font-medium');
-                  tab.classList.add('border-transparent', 'hover:border-gray-300', 'hover:text-white');
-              }
-          });
-      }
+                                    <div class="grid grid-cols-3 gap-6">
+                                        <div class="col-span-3 sm:col-span-2">
+                                            <label for="disk" class="block text-sm font-medium text-gray-400">Storage (GiB)</label>
+                                            <div class="mt-1 flex rounded-xl shadow-sm">
+                                                <input type="text" name="disk" id="disk" class="transition ease-in-out delay-100 block w-full flex-1 text-white rounded-full bg-white/10 border-white/10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= serverinfo.attributes.limits.disk/1024 %>">
+                                            </div>
+                                        </div>
+                                    </div><br><br>
+                                    <button onclick="submitForm()" class="transition ease-in-out delay-100 group relative flex w-auto justify-center rounded-full border border-transparent py-2 px-4 text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Apply Changes to Server
+                                    </button>
+                                </div>
+                            </div>
+                            <% } else { %>
+                                <div class="w-full text-center py-10">
+                                    <h3 class="text-lg text-white">Server not found</h3>
+                                    <p class="text-gray-400">The server you're trying to edit doesn't exist</p>
+                                </div>
+                            <% } %>
+                        <% } else { %>
+                            <div class="w-full text-center py-10">
+                                <h3 class="text-lg text-white">No server selected</h3>
+                                <p class="text-gray-400">Please select a server to edit</p>
+                            </div>
+                        <% } %>
+                        <script>
+                            async function submitForm() {
+                                let ram = encodeURIComponent(document.getElementById("ram").value);
+                                let disk = encodeURIComponent(document.getElementById("disk").value);
+                                let cpu = encodeURIComponent(document.getElementById("cpu").value);
+                                document.location.href = `/modify?id=<%= req.query.id %>&ram=${ram*1024}&disk=${disk*1024}&cpu=${cpu*100}`;
+                            };
+                        </script>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </main>
 
-      // Set active tab on page load
-      setActiveTab();
+        <style>
+        #CV {
+            border-radius: 4px;
+        }
+        </style>
 
-      // For demonstration purposes, simulate changing routes when clicking tabs
-      document.querySelectorAll('#tabs a').forEach(tab => {
-          tab.addEventListener('click', (e) => {
-              e.preventDefault();
-              const href = e.currentTarget.getAttribute('href');
-              history.pushState(null, '', href);
-              window.location.href = href;
-              setActiveTab();
-          });
-      });
+        <script>
+            // Function to highlight the active tab
+            function setActiveTab() {
+                const currentPath = window.location.pathname;
+                const tabs = document.querySelectorAll('#tabs a');
+                tabs.forEach(tab => {
+                    if (tab.getAttribute('href') === currentPath) {
+                        tab.classList.add('border-indigo-500', 'text-indigo-500', 'font-medium');
+                        tab.classList.remove('border-transparent', 'hover:border-gray-300', 'hover:text-white');
+                    } else {
+                        tab.classList.remove('border-indigo-500', 'text-indigo-500', 'font-medium');
+                        tab.classList.add('border-transparent', 'hover:border-gray-300', 'hover:text-white');
+                    }
+                });
+            }
 
-      // Listen for popstate events (back/forward browser navigation)
-      window.addEventListener('popstate', setActiveTab);
-  </script>
-</body>
-</html>
-<script>
-  var options = {
-    classname: 'loadingbar',
-    id: 'loadingbar'
-  };
-  var nanobar = new Nanobar(options);
-  function simulateLoading() {
-    nanobar.go(10); // Change this value to control the loading speed
-    setTimeout(function() {
-      nanobar.go(50);
-    }, 190); // Delay the progress update
-    setTimeout(function() {
-      nanobar.go(100);
-    }, 400); // Another delay
-  }
-  simulateLoading();
-</script>
-<style>
-  .loadingbar .bar {
-    background: #fb923c;
-    -webkit-box-shadow: 0px 4px 38px -15px #fb923c;
-    -moz-box-shadow: 0px 4px 38px -15px #fb923c;
-    box-shadow: 0px 4px 38px -15px #fb923c;
-    height: 1.85px;
-  }
-</style></div></div></main></div></body></html>
+            // Set active tab on page load
+            setActiveTab();
+
+            // For demonstration purposes, simulate changing routes when clicking tabs
+            document.querySelectorAll('#tabs a').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = e.currentTarget.getAttribute('href');
+                    history.pushState(null, '', href);
+                    window.location.href = href;
+                    setActiveTab();
+                });
+            });
+
+            // Listen for popstate events (back/forward browser navigation)
+            window.addEventListener('popstate', setActiveTab);
+        </script>
+    </body>
+    </html>
+    <script>
+    var options = {
+        classname: 'loadingbar',
+        id: 'loadingbar'
+    };
+    var nanobar = new Nanobar(options);
+    function simulateLoading() {
+        nanobar.go(10); // Change this value to control the loading speed
+        setTimeout(function() {
+            nanobar.go(50);
+        }, 190); // Delay the progress update
+        setTimeout(function() {
+            nanobar.go(100);
+        }, 400); // Another delay
+    }
+    simulateLoading();
+    </script>
+    <style>
+    .loadingbar .bar {
+        background: #fb923c;
+        -webkit-box-shadow: 0px 4px 38px -15px #fb923c;
+        -moz-box-shadow: 0px 4px 38px -15px #fb923c;
+        box-shadow: 0px 4px 38px -15px #fb923c;
+        height: 1.85px;
+    }
+    </style>

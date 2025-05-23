@@ -183,7 +183,7 @@
 
   <!-- Servers List -->
   <div class="mt-4">
-      <div class="verflow-hidden">
+      <div class="overflow-hidden">
           <div>
               <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                   <div class="relative w-full">
@@ -202,48 +202,47 @@
               </div>
           </div>
           
-          <!-- Server Cards -->
-          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <% if (pterodactyl.relationships.servers.data.length == 0) { %>
-                  <p class="text-gray-400 text-sm col-span-full">
-                      You don't have any active servers yet. 
-                  </p>
-                  <% } else { %>
-                    <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>    
-                    <div class="bg-white/5 rounded-2xl overflow-hidden shadow-none hover:shadow-lg transition-shadow duration-300">
-                    <div class="p-6">
-                      <h4 class="text-lg font-semibold text-white mb-1"><%= pterodactyl.relationships.servers.data[i].attributes.name.length > 40 ? pterodactyl.relationships.servers.data[i].attributes.name.slice(0, 40) + "..." : pterodactyl.relationships.servers.data[i].attributes.name %></h4>
-                      <p class="text-xs text-gray-300 mb-6"><%= pterodactyl.relationships.servers.data[i].attributes.identifier %></p>
-                      <div class="flex flex-wrap gap-2 mb-4">
-                          <span class="px-2 py-1 text-xs font-semibold rounded-lg bg-white/10 text-gray-100">
+<!-- Server Cards -->
+<div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% if (pterodactyl.relationships.servers.data.length == 0) { %>
+        <p class="text-gray-400 text-sm col-span-full">
+            You don't have any active servers yet. 
+        </p>
+    <% } else { %>
+        <% for (let i = 0, len = pterodactyl.relationships.servers.data.length; i < len; i++) { %>    
+            <div class="bg-white/5 rounded-2xl overflow-hidden shadow-none hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <h4 class="text-lg font-semibold text-white mb-1"><%= pterodactyl.relationships.servers.data[i].attributes.name.length > 40 ? pterodactyl.relationships.servers.data[i].attributes.name.slice(0, 40) + "..." : pterodactyl.relationships.servers.data[i].attributes.name %></h4>
+                    <p class="text-xs text-gray-300 mb-6"><%= pterodactyl.relationships.servers.data[i].attributes.identifier %></p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 text-xs font-semibold rounded-lg bg-white/10 text-gray-100">
                             <%= pterodactyl.relationships.servers.data[i].attributes.limits.memory/1024 %> GiB RAM
-                          </span>
-                          <span class="px-2 py-1 text-xs font-semibold rounded-lg bg-white/10 text-gray-100">
+                        </span>
+                        <span class="px-2 py-1 text-xs font-semibold rounded-lg bg-white/10 text-gray-100">
                             <%= pterodactyl.relationships.servers.data[i].attributes.limits.cpu/100 %> CPU Core(s)
-                          </span>
-                          <span class="px-2 py-1 text-xs font-semibold rounded-lg bg-white/10 text-gray-100">
+                        </span>
+                        <span class="px-2 py-1 text-xs font-semibold rounded-lg bg-white/10 text-gray-100">
                             <%= pterodactyl.relationships.servers.data[i].attributes.limits.disk/1024 %> GiB Storage
-                          </span>
-                      </div>
-                      <a href="../edit?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>" class="transition hover:scale-95 block w-full text-center bg-indigo-500 text-sm hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-t-2xl rounded-b-lg">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 inline-flex mr-1 mb-1">
-<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path>
-</svg>
-                          Edit Server
-                      </a>
+                        </span>
+                    </div>
+                    <a href="../edit?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>" class="transition hover:scale-95 block w-full text-center bg-indigo-500 text-sm hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-t-2xl rounded-b-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 inline-flex mr-1 mb-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path>
+                        </svg>
+                        Edit Server
+                    </a>
 
-<a href="<%= settings.pterodactyl.domain %>/server/<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>" class="mt-2 transition hover:scale-95 block w-full text-center bg-white/10 text-sm hover:bg-white/15 text-white font-medium py-2 px-4 rounded-b-2xl rounded-t-lg">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 mr-1 inline-flex mb-0.5">
-<path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"></path>
-</svg>
-Manage
-</a>
-                  </div>
-
-                  <% } %>
-                  <% } %>
-              
-          </div>
+                    <a href="<%= settings.pterodactyl.domain %>/server/<%= pterodactyl.relationships.servers.data[i].attributes.identifier %>" class="mt-2 transition hover:scale-95 block w-full text-center bg-white/10 text-sm hover:bg-white/15 text-white font-medium py-2 px-4 rounded-b-2xl rounded-t-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 mr-1 inline-flex mb-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"></path>
+                        </svg>
+                        Manage
+                    </a>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+</div>
       </div>
   </div>
 
